@@ -24,6 +24,10 @@ class DevController {
 
     return res.json(dev);
   }
+
+  async update(req, res) {
+    return res.json({ ok: true });
+  }
 }
 
 export default new DevController();
