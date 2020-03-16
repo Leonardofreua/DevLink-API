@@ -1,7 +1,12 @@
 import { Router } from 'express';
 
+import DevController from './app/controllers/DevController';
+import LoginGithubController from './app/controllers/LoginGithubController';
+
 const routes = new Router();
 
-routes.get('/', (req, res) => res.json({ message: 'test' }));
+routes.post('/devs', DevController.store);
+
+routes.post('/loginGithub', LoginGithubController.store);
 
 export default routes;
