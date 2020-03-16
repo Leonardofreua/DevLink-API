@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import DevController from './app/controllers/DevController';
 import SessionController from './app/controllers/SessionController';
-import LoginGithubController from './app/controllers/LoginGithubController';
+import SessionGithubController from './app/controllers/SessionGithubController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -10,8 +10,7 @@ const routes = new Router();
 
 routes.post('/devs', DevController.store);
 routes.post('/sessions', SessionController.store);
-
-routes.post('/loginGithub', LoginGithubController.store);
+routes.get('/githubSessions', SessionGithubController.store);
 
 routes.use(authMiddleware);
 

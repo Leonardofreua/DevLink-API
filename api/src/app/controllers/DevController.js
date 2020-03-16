@@ -2,7 +2,7 @@ import Dev from '../models/Dev';
 
 class DevController {
   async store(req, res) {
-    const { name, email, password, techs } = req.body;
+    const { name, email, password, techs, latitude, longitude } = req.body;
 
     const devExists = await Dev.findOne({ email });
 
@@ -12,6 +12,11 @@ class DevController {
 
     const techsArray = techs.split(',').map(tech => tech.trim());
 
+    const location = {
+      type: 'Point',
+      coordinates: [longitude, latitude],
+    };
+
     const dev = await Dev.create({
       name,
       email,
@@ -20,6 +25,7 @@ class DevController {
       bio: '',
       avatar_url: '',
       techs: techsArray,
+      location,
     });
 
     return res.json(dev);

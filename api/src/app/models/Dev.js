@@ -1,20 +1,23 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
+import PointSchema from './utils/PointSchema';
+
 const SALT_WORK_FACTOR = 8;
 
 const DevSchema = new mongoose.Schema(
   {
     name: String,
-    email: {
-      type: String,
-      unique: true,
-    },
+    email: String,
     password: String,
     github_username: String,
     bio: String,
     avatar_url: String,
     techs: [String],
+    location: {
+      type: PointSchema,
+      index: '2dsphere',
+    },
     login_with_github: {
       type: Boolean,
       default: false,
