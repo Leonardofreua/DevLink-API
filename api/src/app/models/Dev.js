@@ -36,7 +36,7 @@ DevSchema.pre('save', async function save(next) {
   }
 });
 
-DevSchema.methods.validatePassword = async function validatePassword(password) {
+DevSchema.methods.checkPassword = function checkPassword(password) {
   return bcrypt.compare(password, this.password);
 };
 
