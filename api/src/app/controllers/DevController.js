@@ -1,5 +1,7 @@
 import Dev from '../models/Dev';
 
+import parseStringAsArray from '../utils/parseStringAsArray';
+
 class DevController {
   async store(req, res) {
     const { name, email, password, techs, latitude, longitude } = req.body;
@@ -9,8 +11,6 @@ class DevController {
     if (devExists) {
       return res.status(400).json({ error: 'This email is already in use.' });
     }
-
-    const techsArray = techs.split(',').map(tech => tech.trim());
 
     const location = {
       type: 'Point',
@@ -24,7 +24,7 @@ class DevController {
       github_username: '',
       bio: '',
       avatar_url: '',
-      techs: techsArray,
+      techs: parseStringAsArray(techs),
       location,
     });
 
