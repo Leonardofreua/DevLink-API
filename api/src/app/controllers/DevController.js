@@ -21,9 +21,6 @@ class DevController {
       name,
       email,
       password,
-      github_username: '',
-      bio: '',
-      avatar_url: '',
       techs: parseStringAsArray(techs),
       location,
     });
