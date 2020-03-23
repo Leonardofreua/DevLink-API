@@ -63,7 +63,7 @@ class SessionGithubController {
         }),
       };
     } else {
-      const newDev = await Dev.create({
+      const { _id } = await Dev.create({
         name,
         email,
         github_username: login,
@@ -73,8 +73,6 @@ class SessionGithubController {
         avatar_url,
         login_with_github: true,
       });
-
-      const { _id } = newDev;
 
       result = {
         dev: {
