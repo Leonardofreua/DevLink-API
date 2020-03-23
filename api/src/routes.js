@@ -10,6 +10,7 @@ import authMiddleware from './app/middlewares/auth';
 const routes = new Router();
 
 routes.post('/devs', DevController.store);
+
 routes.post('/sessions', SessionController.store);
 routes.get('/githubSessions', SessionGithubController.store);
 
