@@ -16,7 +16,7 @@ routes.get('/githubSessions', SessionGithubController.store);
 
 routes.use(authMiddleware);
 
-// routes.put('/devs', DevController.update);
+routes.put('/devs', DevController.update);
 
 routes.get('/search', SearchController.index);
 

@@ -45,6 +45,21 @@ DevSchema.pre('save', async function save(next) {
   }
 });
 
+DevSchema.pre('findOneAndUpdate', async function update(next) {
+  const modifiedPassword = this.getUpdate().$set.password;
+
+  if (!modifiedPassword) {
+    return next();
+  }
+  try {
+    const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
+    this.getUpdate().password = await bcrypt.hash(modifiedPassword, salt);
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+});
+
 DevSchema.methods.checkPassword = function checkPassword(password) {
   return bcrypt.compare(password, this.password);
 };

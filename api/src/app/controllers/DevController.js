@@ -29,7 +29,39 @@ class DevController {
   }
 
   async update(req, res) {
-    return res.json({ ok: true });
+    const { email, oldPassword } = req.body;
+
+    const dev = await Dev.findById(req.devId);
+
+    if (!dev) {
+      return res.status(401).json({ error: 'Dev not found.' });
+    }
+
+    if (email && email !== dev.email) {
+      const devExists = await Dev.findOne({ email });
+
+      if (devExists) {
+        return res.status(400).json({ error: 'Dev already exists.' });
+      }
+    }
+
+    if (oldPassword && !(await dev.checkPassword(oldPassword))) {
+      return res.status(401).json({ error: 'Password does not match' });
+    }
+
+    const { _id, name } = await Dev.findByIdAndUpdate(
+      req.devId,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+
+    return res.json({
+      _id,
+      name,
+      email,
+    });
   }
 }
 
