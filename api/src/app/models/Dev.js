@@ -12,6 +12,7 @@ const DevSchema = new mongoose.Schema(
     password: String,
     website_url: String,
     linkedin_url: String,
+    youtube_url: String,
     medium_username: String,
     twitter_username: String,
     github_username: String,
