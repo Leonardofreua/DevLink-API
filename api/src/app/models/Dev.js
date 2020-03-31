@@ -16,7 +16,6 @@ const DevSchema = new mongoose.Schema(
     twitter_username: String,
     github_username: String,
     company: String,
-    github_location: String,
     bio: String,
     avatar_url: String,
     techs: [String],
