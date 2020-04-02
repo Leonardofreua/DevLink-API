@@ -35,9 +35,21 @@ class SessionGithubController {
       },
     });
 
-    const { name, login, email, company, bio, avatar_url } = apiResponse.data;
+    const {
+      name,
+      login,
+      email,
+      company,
+      bio,
+      avatar_url,
+      html_url,
+    } = apiResponse.data;
 
     const dev = await Dev.findOne().or([{ email }, { github_username: login }]);
+
+    const socialMedia = {
+      github_url: html_url,
+    };
 
     let result = {};
 
@@ -62,6 +74,7 @@ class SessionGithubController {
         company,
         bio,
         avatar_url,
+        socialMedia,
         login_with_github: true,
       });
 

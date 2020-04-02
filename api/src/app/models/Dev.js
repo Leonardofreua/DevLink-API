@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-import PointSchema from './utils/PointSchema';
+import PointSchema from './schemas/PointSchema';
+import SocialMediaSchema from './schemas/SocialMediaSchema';
 
 const SALT_WORK_FACTOR = 8;
 
@@ -10,11 +11,6 @@ const DevSchema = new mongoose.Schema(
     name: String,
     email: String,
     password: String,
-    website_url: String,
-    linkedin_url: String,
-    youtube_url: String,
-    medium_username: String,
-    twitter_username: String,
     github_username: String,
     company: String,
     bio: String,
@@ -23,6 +19,10 @@ const DevSchema = new mongoose.Schema(
     location: {
       type: PointSchema,
       index: '2dsphere',
+    },
+    socialMedia: {
+      type: SocialMediaSchema,
+      index: 'hashed',
     },
     login_with_github: {
       type: Boolean,
