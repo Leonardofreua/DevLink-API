@@ -23,6 +23,22 @@ class SearchController {
 
     return res.json({ devs });
   }
+
+  async show(req, res) {
+    const { id } = req.params;
+
+    const { name, bio, avatar_url, techs, socialMedia } = await Dev.findById(
+      id
+    );
+
+    return res.json({
+      name,
+      bio,
+      avatar_url,
+      techs,
+      socialMedia,
+    });
+  }
 }
 
 export default new SearchController();
