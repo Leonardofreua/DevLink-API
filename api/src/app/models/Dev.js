@@ -16,6 +16,15 @@ const DevSchema = new mongoose.Schema(
     bio: String,
     avatar_url: String,
     techs: [String],
+    reset_password_token: {
+      type: String,
+      required: false,
+    },
+
+    reset_password_expires: {
+      type: Date,
+      required: false,
+    },
     location: {
       type: PointSchema,
       index: '2dsphere',

@@ -7,6 +7,6 @@ export default {
     pass: '04cc1cb5b06dac',
   },
   default: {
-    from: 'DevLink Team <noreply@devlinksupport.com>',
+    from: 'DevLink <no-reply@devlink.com>',
   },
 };
