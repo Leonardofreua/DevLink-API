@@ -32,11 +32,15 @@ class ForgotPassowrdController {
         new: true,
       }
     );
-
+    // text: `${process.env.APP_URL}/resetPassword/${reset_password_token}`,
     await Mail.sendMail({
       to: `${name} <${email}>`,
       subject: 'Reset Password',
-      text: `${process.env.APP_URL}/resetPassword/${reset_password_token}`,
+      template: 'resetPassword',
+      context: {
+        dev: name,
+        link: `${process.env.APP_URL}/resetPassword/${reset_password_token}`,
+      },
     });
 
     res
@@ -88,9 +92,11 @@ class ForgotPassowrdController {
       await Mail.sendMail({
         to: `${name} <${email}>`,
         subject: 'Your password has been changed',
-        text: `Hi ${name} \n
-              This is a confirmation that the password for
-              your account ${email} has just been changed.\n`,
+        template: 'confirmResetPassword',
+        context: {
+          dev: name,
+          email,
+        },
       });
     } else {
       return res.status(422).json({
