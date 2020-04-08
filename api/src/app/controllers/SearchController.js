@@ -4,9 +4,14 @@ import parseStringAsArray from '../utils/parseStringAsArray';
 
 class SearchController {
   async index(req, res) {
-    const { latitude, longitude, techs } = req.query;
+    const { page = 1 } = req.query;
 
-    const devs = await Dev.find({
+    const { techs } = req.body;
+    const { latitude, longitude } = req.query;
+
+    const resultsPerPage = 10;
+
+    const dev = await Dev.find({
       techs: {
         $in: parseStringAsArray(techs),
       },
@@ -19,17 +24,20 @@ class SearchController {
           $maxDistance: 10000,
         },
       },
-    });
+    })
+      .populate('file', 'name path file_url')
+      .skip((page - 1) * resultsPerPage)
+      .limit(resultsPerPage);
 
-    return res.json({ devs });
+    return res.json({ dev });
   }
 
   async show(req, res) {
     const { id } = req.params;
 
-    const { name, bio, avatar_url, techs, socialMedia } = await Dev.findById(
-      id
-    );
+    const { name, bio, avatar_url, techs, socialMedia, file } = await (
+      await Dev.findById(id).populate('file', 'name path file_url')
+    ).execPopulate();
 
     return res.json({
       name,
@@ -37,6 +45,7 @@ class SearchController {
       avatar_url,
       techs,
       socialMedia,
+      file,
     });
   }
 }
