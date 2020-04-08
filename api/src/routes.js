@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import multer from 'multer';
+import multerConfig from './config/multer';
 
 import DevController from './app/controllers/DevController';
 import SessionController from './app/controllers/SessionController';
@@ -9,6 +11,7 @@ import ForgotPassowrdController from './app/controllers/ForgotPassowrdController
 import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
+const upload = multer(multerConfig);
 
 routes.post('/devs', DevController.store);
 
@@ -27,6 +30,10 @@ routes.put('/resetPassword', ForgotPassowrdController.update);
 routes.use(authMiddleware);
 
 routes.put('/devs', DevController.update);
+
+routes.post('/files', upload.single('file'), (req, res) => {
+  return res.json({ ok: true });
+});
 
 routes.get('/search', SearchController.index);
 routes.get('/search/:id', SearchController.show);
