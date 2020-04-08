@@ -11,7 +11,7 @@ class SearchController {
 
     const resultsPerPage = 10;
 
-    const dev = await Dev.find({
+    const searchCriteria = {
       techs: {
         $in: parseStringAsArray(techs),
       },
@@ -24,10 +24,16 @@ class SearchController {
           $maxDistance: 10000,
         },
       },
-    })
+    };
+
+    const dev = await Dev.find(searchCriteria)
       .populate('file', 'name path file_url')
       .skip((page - 1) * resultsPerPage)
       .limit(resultsPerPage);
+
+    const numOfDevs = await Dev.count(searchCriteria);
+
+    res.header('X-Total-Count', numOfDevs);
 
     return res.json({ dev });
   }
