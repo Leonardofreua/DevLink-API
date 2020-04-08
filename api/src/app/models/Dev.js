@@ -20,7 +20,6 @@ const DevSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-
     reset_password_expires: {
       type: Date,
       required: false,
@@ -32,6 +31,10 @@ const DevSchema = new mongoose.Schema(
     socialMedia: {
       type: SocialMediaSchema,
       index: 'hashed',
+    },
+    file: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'File',
     },
     login_with_github: {
       type: Boolean,

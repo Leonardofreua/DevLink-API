@@ -7,6 +7,7 @@ import SessionController from './app/controllers/SessionController';
 import SessionGithubController from './app/controllers/SessionGithubController';
 import SearchController from './app/controllers/SearchController';
 import ForgotPassowrdController from './app/controllers/ForgotPassowrdController';
+import FileController from './app/controllers/FileController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -31,9 +32,7 @@ routes.use(authMiddleware);
 
 routes.put('/devs', DevController.update);
 
-routes.post('/files', upload.single('file'), (req, res) => {
-  return res.json({ ok: true });
-});
+routes.post('/files', upload.single('file'), FileController.store);
 
 routes.get('/search', SearchController.index);
 routes.get('/search/:id', SearchController.show);
