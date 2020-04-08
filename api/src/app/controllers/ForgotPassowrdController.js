@@ -1,7 +1,10 @@
 import crypto from 'crypto';
 
 import Dev from '../models/Dev';
-import Mail from '../../lib/Mail';
+
+import ForgotPassowrdMail from '../jobs/ForgotPasswordMail';
+import ConfirmPasswordMail from '../jobs/ConfirmPasswordMail';
+import Queue from '../../lib/Queue';
 
 class ForgotPassowrdController {
   async edit(req, res) {
@@ -32,15 +35,11 @@ class ForgotPassowrdController {
         new: true,
       }
     );
-    // text: `${process.env.APP_URL}/resetPassword/${reset_password_token}`,
-    await Mail.sendMail({
-      to: `${name} <${email}>`,
-      subject: 'Reset Password',
-      template: 'resetPassword',
-      context: {
-        dev: name,
-        link: `${process.env.APP_URL}/resetPassword/${reset_password_token}`,
-      },
+
+    await Queue.add(ForgotPassowrdMail.key, {
+      name,
+      email,
+      reset_password_token,
     });
 
     res
@@ -89,14 +88,9 @@ class ForgotPassowrdController {
 
       await dev.save();
 
-      await Mail.sendMail({
-        to: `${name} <${email}>`,
-        subject: 'Your password has been changed',
-        template: 'confirmResetPassword',
-        context: {
-          dev: name,
-          email,
-        },
+      await Queue.add(ConfirmPasswordMail.key, {
+        name,
+        email,
       });
     } else {
       return res.status(422).json({
