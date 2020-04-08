@@ -9,16 +9,19 @@
     "dev:debug": "nodemon --inspect src/server.js"
   },
   "dependencies": {
+    "@sentry/node": "5.15.4",
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "bee-queue": "^1.2.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "express-handlebars": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.4",
     "nodemailer": "^6.4.6",
-    "nodemailer-express-handlebars": "^4.0.0"
+    "nodemailer-express-handlebars": "^4.0.0",
+    "youch": "^2.0.10"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
