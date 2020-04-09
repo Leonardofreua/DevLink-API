@@ -33,6 +33,7 @@ routes.use(authMiddleware);
 routes.put('/devs', DevController.update);
 
 routes.post('/files', upload.single('file'), FileController.store);
+routes.delete('/files/:id', FileController.delete);
 
 routes.get('/search', SearchController.index);
 routes.get('/search/:id', SearchController.show);
