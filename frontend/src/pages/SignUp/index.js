@@ -48,7 +48,6 @@ export default function SignUp() {
             value={techs}
             onChange={(event) => setTechs(event.target.value)}
           />
-
           <SubmitButton>Create Account</SubmitButton>
         </Form>
       </SignUpContainer>
