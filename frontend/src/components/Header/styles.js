@@ -5,6 +5,12 @@ export const Nav = styled.header`
   justify-content: space-between;
   align-items: center;
   background: #24292e;
+  width: 100%;
+  transition: box-shadow 0.3s;
+
+  &:hover {
+    box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.75);
+  }
 
   img {
     width: 120px;
