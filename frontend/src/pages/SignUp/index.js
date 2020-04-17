@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 
-import {
-  Container,
-  TextualContent,
-  SignUpContainer,
-  Form,
-  SubmitButton,
-} from './styles';
+import { Container, SignUpContainer, Form } from './styles';
+import { TextualContent } from '../../styles/components/TextualContent';
+import { SubmitButton } from '../../styles/components/Button';
 
 export default function SignUp() {
   const [name, setName] = useState('');
@@ -53,7 +49,7 @@ export default function SignUp() {
             onChange={(event) => setTechs(event.target.value)}
           />
 
-          <SubmitButton>Save</SubmitButton>
+          <SubmitButton>Create Account</SubmitButton>
         </Form>
       </SignUpContainer>
     </Container>
