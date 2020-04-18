@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 import { darken } from 'polished';
 
 export const SubmitButton = styled.button`
@@ -7,14 +6,12 @@ export const SubmitButton = styled.button`
   height: 47px;
   background: #28a745;
   border: 0;
-  border-radius: 8px;
+  border-radius: 7px;
   color: #fff;
-  font-weight: bold;
   margin-top: 30px;
   display: inline-block;
   text-align: center;
-  text-decoration: none;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 47px;
 
   &:hover {
