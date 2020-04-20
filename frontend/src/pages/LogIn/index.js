@@ -36,6 +36,7 @@ export default function LogIn() {
           />
 
           <input
+            type="password"
             placeholder="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
