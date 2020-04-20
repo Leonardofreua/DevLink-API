@@ -86,19 +86,23 @@ class DevController {
         return res.status(401).json({ error: 'Password does not match' });
       }
 
-      const { _id, name } = await Dev.findByIdAndUpdate(
-        req.devId,
+      await Dev.update(
+        { _id: req.devId },
         {
           $set: req.body,
           location: Object.keys(location).length > 0 ? location : undefined,
-        },
-        { new: true }
+        }
       );
+
+      const { _id, name, avatar_url, file } = await Dev.findById(req.devId)
+        .populate('file', 'name path file_url')
+        .exec();
 
       return res.json({
         _id,
         name,
         email,
+        avatar: file || avatar_url,
       });
     }
     return res.status(400).json({ error: 'Validation fails' });

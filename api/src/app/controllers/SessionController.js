@@ -36,8 +36,7 @@ class SessionController {
           _id,
           name,
           email,
-          avatar_url,
-          file,
+          avatar: file || avatar_url,
         },
         token: jwt.sign({ _id }, authConfig.secret, {
           expiresIn: authConfig.expiresIn,
