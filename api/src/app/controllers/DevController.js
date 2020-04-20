@@ -1,67 +1,107 @@
+import * as Yup from 'yup';
+
 import Dev from '../models/Dev';
 
 import parseStringAsArray from '../utils/parseStringAsArray';
 
 class DevController {
   async store(req, res) {
-    const { name, email, password, techs } = req.body;
-
-    const devExists = await Dev.findOne({ email });
-
-    if (devExists) {
-      return res.status(400).json({ error: 'This email is already in use.' });
-    }
-
-    const dev = await Dev.create({
-      name,
-      email,
-      password,
-      techs: parseStringAsArray(techs),
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      email: Yup.string()
+        .email()
+        .required(),
+      password: Yup.string()
+        .required()
+        .min(6),
+      techs: Yup.string().required(),
     });
 
-    return res.json(dev);
-  }
+    if (await schema.isValid(req.body)) {
+      const { name, email, password, techs } = req.body;
 
-  async update(req, res) {
-    const { email, oldPassword, latitude, longitude } = req.body;
-
-    const dev = await Dev.findById(req.devId);
-
-    if (!dev) {
-      return res.status(401).json({ error: 'Dev not found.' });
-    }
-
-    const location = {
-      type: 'Point',
-      coordinates: [longitude, latitude],
-    };
-
-    if (email && email !== dev.email) {
       const devExists = await Dev.findOne({ email });
 
       if (devExists) {
-        return res.status(400).json({ error: 'Dev already exists.' });
+        return res.status(400).json({ error: 'This email is already in use.' });
       }
+
+      const dev = await Dev.create({
+        name,
+        email,
+        password,
+        techs: parseStringAsArray(techs),
+      });
+
+      return res.json(dev);
     }
+    return res.status(400).json({ error: 'Validation fails' });
+  }
 
-    if (oldPassword && !(await dev.checkPassword(oldPassword))) {
-      return res.status(401).json({ error: 'Password does not match' });
-    }
-
-    const { _id, name } = await Dev.findByIdAndUpdate(
-      req.devId,
-      {
-        $set: req.body,
-        location,
-      },
-      { new: true }
-    );
-
-    return res.json({
-      _id,
-      name,
-      email,
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      email: Yup.string().email(),
+      oldPassword: Yup.string().min(6),
+      password: Yup.string()
+        .min(6)
+        .when('oldPassword', (oldPassword, field) =>
+          oldPassword ? field.required() : field
+        ),
+      confirmPassword: Yup.string().when('password', (password, field) =>
+        password ? field.required().oneOf([Yup.ref('password')]) : field
+      ),
+      techs: Yup.string(),
+      latitude: Yup.number(),
+      longitude: Yup.number(),
     });
+
+    if (await schema.isValid(req.body)) {
+      const { email, oldPassword, latitude, longitude } = req.body;
+
+      const dev = await Dev.findById(req.devId);
+
+      if (!dev) {
+        return res.status(401).json({ error: 'Dev not found.' });
+      }
+
+      let location = {};
+
+      if (latitude && longitude) {
+        location = {
+          type: 'Point',
+          coordinates: [longitude, latitude],
+        };
+      }
+
+      if (email && email !== dev.email) {
+        const devExists = await Dev.findOne({ email });
+
+        if (devExists) {
+          return res.status(400).json({ error: 'Dev already exists.' });
+        }
+      }
+
+      if (oldPassword && !(await dev.checkPassword(oldPassword))) {
+        return res.status(401).json({ error: 'Password does not match' });
+      }
+
+      const { _id, name } = await Dev.findByIdAndUpdate(
+        req.devId,
+        {
+          $set: req.body,
+          location: Object.keys(location).length > 0 ? location : undefined,
+        },
+        { new: true }
+      );
+
+      return res.json({
+        _id,
+        name,
+        email,
+      });
+    }
+    return res.status(400).json({ error: 'Validation fails' });
   }
 }
 
