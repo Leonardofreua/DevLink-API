@@ -1,7 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { FaGithub } from 'react-icons/fa';
 
-// import { Container } from './styles';
+import { Container, LoginContainer, GithubLoginButton, Form } from './styles';
+import { TextualContent } from '../../styles/components/TextualContent';
+import { SubmitButton } from '../../styles/components/Button';
 
 export default function LogIn() {
-  return <h1>Log in</h1>;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  return (
+    <Container>
+      <TextualContent>
+        <h1>Built to connect the true artisans of technology</h1>
+
+        <p>
+          Join this community to meet programming and technology enthusiasts
+          around you and take the opportunity to share knowledge.
+        </p>
+      </TextualContent>
+
+      <LoginContainer>
+        <h2>Log_in</h2>
+
+        <GithubLoginButton to="/">
+          <FaGithub size={22} color="#FFF" /> With <strong>Github</strong>
+        </GithubLoginButton>
+
+        <Form onSubmit={() => {}}>
+          <input
+            placeholder="Email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+
+          <input
+            placeholder="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <SubmitButton>Log in</SubmitButton>
+        </Form>
+
+        <div>
+          <Link to="/">Forgot your password?</Link>
+        </div>
+        <div>
+          Are you new here? <Link to="/">Create an account</Link>
+        </div>
+      </LoginContainer>
+    </Container>
+  );
 }
