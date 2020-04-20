@@ -44,7 +44,7 @@ export default function LogIn() {
         </Form>
 
         <div>
-          <Link to="/">Forgot your password?</Link>
+          <Link to="/forgotPassowrd">Forgot your password?</Link>
         </div>
         <div>
           Are you new here? <Link to="/">Create an account</Link>
