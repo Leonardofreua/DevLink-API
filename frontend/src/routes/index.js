@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import SignUp from './pages/SignUp';
-import LogIn from './pages/LogIn';
-import ForgotPassword from './pages/ForgotPassword';
-import ResetPassword from './pages/ResetPassword';
+import SignUp from '../pages/SignUp';
+import LogIn from '../pages/LogIn';
+import ForgotPassword from '../pages/ForgotPassword';
+import ResetPassword from '../pages/ResetPassword';
 
 export default function Routes() {
   return (
