@@ -8,13 +8,17 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
-  body {
+  html, body, #root {
+    height: 100%;
+  }
+
+  body, input, button {
     font: 400 14px 'Fira Code', monospace;
     -webkit-font-smoothing: antialiased;
   }
 
-  input, button {
-    font: 400 14px 'Fira Code', monospace;
+  ul {
+    list-style: none;
   }
 
   button {
