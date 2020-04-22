@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Input } from '@rocketseat/unform';
 
 import { SignUpContainer } from './styles';
+import { TextualContent } from '~/styles/components/TextualContent';
 import { SubmitButton } from '~/styles/components/Button';
 
 export default function SignUp() {
@@ -11,14 +12,14 @@ export default function SignUp() {
 
   return (
     <>
-      <span>
+      <TextualContent>
         <h1>Built to connect the true artisans of technology</h1>
 
         <p>
           Join this community to meet programming and technology enthusiasts
           around you and take the opportunity to share knowledge.
         </p>
-      </span>
+      </TextualContent>
 
       <SignUpContainer>
         <h2>Sign_up</h2>
