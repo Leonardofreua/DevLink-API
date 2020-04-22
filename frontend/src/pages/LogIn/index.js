@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { FaGithub } from 'react-icons/fa';
 
 import { Container, LoginContainer, GithubLoginButton, Form } from './styles';
-import { TextualContent } from '../../styles/components/TextualContent';
-import { SubmitButton } from '../../styles/components/Button';
+import { TextualContent } from '~/styles/components/TextualContent';
+import { SubmitButton } from '~/styles/components/Button';
 
 export default function LogIn() {
   const [email, setEmail] = useState('');

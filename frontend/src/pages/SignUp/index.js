@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 import { Container, SignUpContainer, Form } from './styles';
-import { TextualContent } from '../../styles/components/TextualContent';
-import { SubmitButton } from '../../styles/components/Button';
+import { TextualContent } from '~/styles/components/TextualContent';
+import { SubmitButton } from '~/styles/components/Button';
 
 export default function SignUp() {
   const [name, setName] = useState('');

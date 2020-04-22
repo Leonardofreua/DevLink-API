@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Container, ForgotPassowrdContainer, Form } from './styles';
-import { SubmitButton } from '../../styles/components/Button';
+import { SubmitButton } from '~/styles/components/Button';
 
 export default function ForgotPassword() {
   const [newPassword, setNewPassword] = useState('');
