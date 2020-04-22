@@ -65,6 +65,7 @@ export const GithubLoginButton = styled(Link)`
   font-size: 16px;
   line-height: 47px;
   text-decoration: none;
+  transition: background 0.4s;
 
   svg {
     vertical-align: middle;

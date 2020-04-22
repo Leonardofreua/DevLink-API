@@ -13,6 +13,7 @@ export const SubmitButton = styled.button`
   text-align: center;
   font-size: 16px;
   line-height: 47px;
+  transition: background 0.4s;
 
   &:hover {
     background: ${darken(0.03, '#28a745')};
