@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 import { FaGithub } from 'react-icons/fa';
 
@@ -6,8 +7,9 @@ import { LoginContainer, GithubLoginButton } from './styles';
 import { SubmitButton } from '~/styles/components/Button';
 
 export default function LogIn() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  function handleSubmit(data) {
+    console.tron.log(data);
+  }
 
   return (
     <>
@@ -27,21 +29,12 @@ export default function LogIn() {
           <FaGithub size={22} color="#FFF" /> With <strong>Github</strong>
         </GithubLoginButton>
 
-        <form>
-          <input
-            placeholder="Email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
+        <Form onSubmit={handleSubmit}>
+          <Input name="email" type="email" placeholder="Email" />
 
-          <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
+          <Input name="password" type="password" placeholder="Password" />
           <SubmitButton>Log in</SubmitButton>
-        </form>
+        </Form>
 
         <div>
           <Link to="/forgotPassword">Forgot your password?</Link>

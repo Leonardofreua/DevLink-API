@@ -1,34 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Form, Input } from '@rocketseat/unform';
 
 import { ForgotPassowrdContainer } from './styles';
 import { SubmitButton } from '~/styles/components/Button';
 
 export default function ForgotPassword() {
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  function handleSubmit(data) {
+    console.tron.log(data);
+  }
 
   return (
     <>
       <ForgotPassowrdContainer>
         <h2>Reset Password</h2>
 
-        <form>
-          <input
-            type="password"
-            placeholder="New password"
-            value={newPassword}
-            onChange={(event) => setNewPassword(event.target.value)}
-          />
-
-          <input
+        <Form onSubmit={handleSubmit}>
+          <Input name="password" type="password" placeholder="New password" />
+          <Input
+            name="confirmPassword"
             type="password"
             placeholder="Confirm password"
-            value={confirmPassword}
-            onChange={(event) => setConfirmPassword(event.target.value)}
           />
 
           <SubmitButton>Reset Password</SubmitButton>
-        </form>
+        </Form>
       </ForgotPassowrdContainer>
     </>
   );

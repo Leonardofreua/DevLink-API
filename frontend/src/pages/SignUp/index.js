@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Form, Input } from '@rocketseat/unform';
 
 import { SignUpContainer } from './styles';
 import { SubmitButton } from '~/styles/components/Button';
 
 export default function SignUp() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [techs, setTechs] = useState('');
+  function handleSubmit(data) {
+    console.tron.log(data);
+  }
 
   return (
     <>
@@ -23,33 +23,14 @@ export default function SignUp() {
       <SignUpContainer>
         <h2>Sign_up</h2>
 
-        <form>
-          <input
-            placeholder="Name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
+        <Form onSubmit={handleSubmit}>
+          <Input name="name" placeholder="Name" />
+          <Input name="email" type="email" placeholder="Email" />
+          <Input name="password" type="password" placeholder="password" />
+          <Input name="techs" placeholder="techs" />
 
-          <input
-            placeholder="Email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-
-          <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-
-          <input
-            placeholder="techs"
-            value={techs}
-            onChange={(event) => setTechs(event.target.value)}
-          />
           <SubmitButton>Create Account</SubmitButton>
-        </form>
+        </Form>
       </SignUpContainer>
     </>
   );
