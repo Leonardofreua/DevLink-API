@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import { SignUpContainer } from './styles';
-import { TextualContent } from '~/styles/components/TextualContent';
 import { SubmitButton } from '~/styles/components/Button';
 
 export default function SignUp() {
@@ -12,14 +11,14 @@ export default function SignUp() {
 
   return (
     <>
-      <TextualContent>
+      <span>
         <h1>Built to connect the true artisans of technology</h1>
 
         <p>
           Join this community to meet programming and technology enthusiasts
           around you and take the opportunity to share knowledge.
         </p>
-      </TextualContent>
+      </span>
 
       <SignUpContainer>
         <h2>Sign_up</h2>

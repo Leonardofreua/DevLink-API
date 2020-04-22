@@ -12,7 +12,7 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={SignUp} />
       <Route path="/logIn" component={LogIn} />
-      <Route path="/forgotPassowrd" component={ForgotPassword} />
+      <Route path="/forgotPassword" component={ForgotPassword} />
       <Route path="/resetPassword" component={ResetPassword} />
     </Switch>
   );

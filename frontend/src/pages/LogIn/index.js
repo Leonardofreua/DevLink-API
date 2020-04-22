@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { FaGithub } from 'react-icons/fa';
 
 import { LoginContainer, GithubLoginButton } from './styles';
-import { TextualContent } from '~/styles/components/TextualContent';
 import { SubmitButton } from '~/styles/components/Button';
 
 export default function LogIn() {
@@ -12,14 +11,14 @@ export default function LogIn() {
 
   return (
     <>
-      <TextualContent>
+      <span>
         <h1>Built to connect the true artisans of technology</h1>
 
         <p>
           Join this community to meet programming and technology enthusiasts
           around you and take the opportunity to share knowledge.
         </p>
-      </TextualContent>
+      </span>
 
       <LoginContainer>
         <h2>Log_in</h2>
@@ -45,7 +44,7 @@ export default function LogIn() {
         </form>
 
         <div>
-          <Link to="/forgotPassowrd">Forgot your password?</Link>
+          <Link to="/forgotPassword">Forgot your password?</Link>
         </div>
         <div>
           Are you new here? <Link to="/">Create an account</Link>
