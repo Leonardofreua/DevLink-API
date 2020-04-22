@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { ForgotPassowrdContainer, Form } from './styles';
+import { ForgotPassowrdContainer } from './styles';
 import { SubmitButton } from '~/styles/components/Button';
 
 export default function ForgotPassword() {
@@ -12,7 +12,7 @@ export default function ForgotPassword() {
       <ForgotPassowrdContainer>
         <h2>Reset Password</h2>
 
-        <Form onSubmit={() => {}}>
+        <form>
           <input
             type="password"
             placeholder="New password"
@@ -28,7 +28,7 @@ export default function ForgotPassword() {
           />
 
           <SubmitButton>Reset Password</SubmitButton>
-        </Form>
+        </form>
       </ForgotPassowrdContainer>
     </>
   );

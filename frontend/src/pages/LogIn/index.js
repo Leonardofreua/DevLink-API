@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaGithub } from 'react-icons/fa';
 
-import { LoginContainer, GithubLoginButton, Form } from './styles';
+import { LoginContainer, GithubLoginButton } from './styles';
 import { TextualContent } from '~/styles/components/TextualContent';
 import { SubmitButton } from '~/styles/components/Button';
 
@@ -28,7 +28,7 @@ export default function LogIn() {
           <FaGithub size={22} color="#FFF" /> With <strong>Github</strong>
         </GithubLoginButton>
 
-        <Form onSubmit={() => {}}>
+        <form>
           <input
             placeholder="Email"
             value={email}
@@ -42,7 +42,7 @@ export default function LogIn() {
             onChange={(event) => setPassword(event.target.value)}
           />
           <SubmitButton>Log in</SubmitButton>
-        </Form>
+        </form>
 
         <div>
           <Link to="/forgotPassowrd">Forgot your password?</Link>
