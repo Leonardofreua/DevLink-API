@@ -2,10 +2,18 @@ import React from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 import { FaGithub } from 'react-icons/fa';
+import * as Yup from 'yup';
 
 import { LoginContainer, GithubLoginButton } from './styles';
 import { TextualContent } from '~/styles/components/TextualContent';
 import { SubmitButton } from '~/styles/components/Button';
+
+const schemaValidation = Yup.object().shape({
+  email: Yup.string()
+    .email('Enter a valid email')
+    .required('Email is required'),
+  password: Yup.string().required('Password is required'),
+});
 
 export default function LogIn() {
   function handleSubmit(data) {
@@ -30,7 +38,7 @@ export default function LogIn() {
           <FaGithub size={22} color="#FFF" /> With <strong>Github</strong>
         </GithubLoginButton>
 
-        <Form onSubmit={handleSubmit}>
+        <Form schema={schemaValidation} onSubmit={handleSubmit}>
           <Input name="email" type="email" placeholder="Email" />
 
           <Input name="password" type="password" placeholder="Password" />

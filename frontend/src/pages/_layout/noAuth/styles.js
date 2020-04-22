@@ -11,7 +11,10 @@ export const Wrapper = styled.div`
   align-items: center;
 
   span {
-    color: red;
+    color: #d43b11;
+    align-self: flex-start;
+    margin: 0 0 20px;
+    font-weight: 400;
   }
 
   h2 {
