@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaGithub } from 'react-icons/fa';
 
-import { Container, LoginContainer, GithubLoginButton, Form } from './styles';
+import { LoginContainer, GithubLoginButton, Form } from './styles';
 import { TextualContent } from '~/styles/components/TextualContent';
 import { SubmitButton } from '~/styles/components/Button';
 
@@ -11,7 +11,7 @@ export default function LogIn() {
   const [password, setPassword] = useState('');
 
   return (
-    <Container>
+    <>
       <TextualContent>
         <h1>Built to connect the true artisans of technology</h1>
 
@@ -51,6 +51,6 @@ export default function LogIn() {
           Are you new here? <Link to="/">Create an account</Link>
         </div>
       </LoginContainer>
-    </Container>
+    </>
   );
 }

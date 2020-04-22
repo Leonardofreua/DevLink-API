@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Container, SignUpContainer, Form } from './styles';
+import { SignUpContainer, Form } from './styles';
 import { TextualContent } from '~/styles/components/TextualContent';
 import { SubmitButton } from '~/styles/components/Button';
 
@@ -11,7 +11,7 @@ export default function SignUp() {
   const [techs, setTechs] = useState('');
 
   return (
-    <Container>
+    <>
       <TextualContent>
         <h1>Built to connect the true artisans of technology</h1>
 
@@ -52,6 +52,6 @@ export default function SignUp() {
           <SubmitButton>Create Account</SubmitButton>
         </Form>
       </SignUpContainer>
-    </Container>
+    </>
   );
 }

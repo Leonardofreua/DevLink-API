@@ -31,4 +31,8 @@ export default createGlobalStyle`
   button {
     cursor: pointer;
   }
+
+  &::placeholder {
+    color: rgb(160, 160, 160);
+  }
 `;

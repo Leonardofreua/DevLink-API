@@ -2,17 +2,6 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 import { Link } from 'react-router-dom';
 
-export const Container = styled.div`
-  width: 100%;
-  max-width: 1200px;
-  height: 90vh;
-  margin: 0 auto;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 export const LoginContainer = styled.div`
   width: 100%;
   max-width: 330px;
@@ -22,7 +11,7 @@ export const LoginContainer = styled.div`
   padding: 20px;
 
   h2 {
-    font-size: 22px;
+    font-size: 20px;
     text-align: center;
     margin: 15px 0 15px;
   }
@@ -36,6 +25,11 @@ export const LoginContainer = styled.div`
       font-weight: 400;
       color: #187026;
       text-decoration: none;
+      opacity: 0.9;
+    }
+
+    a:hover {
+      opacity: 1;
     }
   }
 
@@ -49,6 +43,11 @@ export const LoginContainer = styled.div`
       color: #187026;
       font-weight: bold;
       text-decoration: none;
+      opacity: 0.7;
+    }
+
+    a:hover {
+      opacity: 1;
     }
   }
 `;
@@ -78,15 +77,17 @@ export const GithubLoginButton = styled(Link)`
 
 export const Form = styled.form`
   width: 100%;
-  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
 
   input {
-    width: 100%;
     height: 47px;
     margin-top: 13px;
     color: #666;
     border: 1px solid #dcdce6;
     border-radius: 7px;
     padding: 0 20px;
+    margin: 0 0 10px;
   }
 `;

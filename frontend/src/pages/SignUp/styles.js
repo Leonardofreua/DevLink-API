@@ -1,16 +1,5 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  width: 100%;
-  max-width: 1200px;
-  height: 90vh;
-  margin: 0 auto;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 export const SignUpContainer = styled.div`
   width: 100%;
   max-width: 330px;
@@ -20,7 +9,7 @@ export const SignUpContainer = styled.div`
   padding: 20px;
 
   h2 {
-    font-size: 22px;
+    font-size: 20px;
     text-align: center;
     margin: 15px 0 15px;
   }
@@ -28,15 +17,17 @@ export const SignUpContainer = styled.div`
 
 export const Form = styled.form`
   width: 100%;
-  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
 
   input {
-    width: 100%;
     height: 47px;
     margin-top: 13px;
     color: #666;
     border: 1px solid #dcdce6;
     border-radius: 7px;
     padding: 0 20px;
+    margin: 0 0 10px;
   }
 `;
