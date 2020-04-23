@@ -1,10 +1,13 @@
 import React from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
+import Select from '~/styles/components/TechSelect';
 
 import { SignUpContainer } from './styles';
 import { TextualContent } from '~/styles/components/TextualContent';
 import { SubmitButton } from '~/styles/components/Button';
+
+import { TechsObject } from '~/pages/utils/TechsObject';
 
 const schemaValidation = Yup.object().shape({
   name: Yup.string().required('Name is required'),
@@ -14,7 +17,10 @@ const schemaValidation = Yup.object().shape({
   password: Yup.string()
     .min(6, 'Password must be at least 6 characteres')
     .required('Password is required'),
-  techs: Yup.string().required('Techs is required'),
+  techs: Yup.array()
+    .max(5, 'Choose a maximum of 5 techs')
+    .required('Techs is required')
+    .nullable(),
 });
 
 export default function SignUp() {
@@ -40,7 +46,13 @@ export default function SignUp() {
           <Input name="name" placeholder="Name" />
           <Input name="email" type="email" placeholder="Email" />
           <Input name="password" type="password" placeholder="password" />
-          <Input name="techs" placeholder="techs" />
+          <Select
+            name="techs"
+            noOptionsMessage={() => 'Tech not found'}
+            placeholder="Type a tech and press enter..."
+            options={TechsObject}
+            isMulti
+          />
 
           <SubmitButton>Create Account</SubmitButton>
         </Form>
