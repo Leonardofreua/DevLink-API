@@ -76,7 +76,7 @@ export default function SignUp() {
             isMulti
           />
 
-          <SubmitButton loading={loading}>
+          <SubmitButton>
             {loading ? 'Loading...' : 'Create Account'}
           </SubmitButton>
         </Form>
