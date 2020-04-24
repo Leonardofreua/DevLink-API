@@ -24,6 +24,19 @@ const schemaValidation = Yup.object().shape({
 });
 
 export default function SignUp() {
+  const selectStyle = {
+    control: (_, state) => ({
+      // none of react-select's styles are passed to <Control />
+      border: '1px solid #dcdce6',
+      borderRadius: '7px',
+      boxShadow: state.isFocused ? 0 : 0,
+    }),
+  };
+
+  const components = {
+    DropdownIndicator: null,
+  };
+
   function handleSubmit(data) {
     console.tron.log(data);
   }
@@ -48,9 +61,12 @@ export default function SignUp() {
           <Input name="password" type="password" placeholder="password" />
           <Select
             name="techs"
+            components={components}
             noOptionsMessage={() => 'Tech not found'}
             placeholder="Type a tech and press enter..."
             options={TechsObject}
+            styles={selectStyle}
+            isClearable={false}
             isMulti
           />
 
