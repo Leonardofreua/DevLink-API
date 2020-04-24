@@ -11,20 +11,36 @@ class SearchController {
 
     const resultsPerPage = 10;
 
-    const searchCriteria = {
-      techs: {
-        $in: parseArrayObjectsToArrayStrings(techs),
-      },
-      location: {
-        $near: {
-          $geometry: {
-            type: 'Point',
-            coordinates: [longitude, latitude],
-          },
-          $maxDistance: 10000,
+    let searchCriteria = {};
+
+    if (techs) {
+      searchCriteria = {
+        techs: {
+          $in: parseArrayObjectsToArrayStrings(techs),
         },
-      },
-    };
+        location: {
+          $near: {
+            $geometry: {
+              type: 'Point',
+              coordinates: [longitude, latitude],
+            },
+            $maxDistance: 10000,
+          },
+        },
+      };
+    } else {
+      searchCriteria = {
+        location: {
+          $near: {
+            $geometry: {
+              type: 'Point',
+              coordinates: [longitude, latitude],
+            },
+            $maxDistance: 10000,
+          },
+        },
+      };
+    }
 
     const dev = await Dev.find(searchCriteria)
       .populate('file', 'name path file_url')
