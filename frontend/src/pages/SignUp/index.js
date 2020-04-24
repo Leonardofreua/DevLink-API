@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import Select from '~/styles/components/TechSelect';
@@ -28,6 +28,7 @@ const schemaValidation = Yup.object().shape({
 
 export default function SignUp() {
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
 
   const selectStyle = {
     control: (_, state) => ({
@@ -75,7 +76,9 @@ export default function SignUp() {
             isMulti
           />
 
-          <SubmitButton>Create Account</SubmitButton>
+          <SubmitButton loading={loading}>
+            {loading ? 'Loading...' : 'Create Account'}
+          </SubmitButton>
         </Form>
       </SignUpContainer>
     </>

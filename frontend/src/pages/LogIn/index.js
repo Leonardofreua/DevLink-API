@@ -48,7 +48,9 @@ export default function LogIn() {
           <Input name="email" type="email" placeholder="Email" />
           <Input name="password" type="password" placeholder="Password" />
 
-          <SubmitButton>{loading ? 'Loading...' : 'Log in'}</SubmitButton>
+          <SubmitButton loading={loading}>
+            {loading ? 'Loading...' : 'Log in'}
+          </SubmitButton>
         </Form>
 
         <div>
