@@ -5,7 +5,7 @@ import { Route, Redirect } from 'react-router-dom';
 import AuthLayout from '~/pages/_layout/auth';
 import NoAuthLayout from '~/pages/_layout/noAuth';
 
-import store from '~/store';
+import { store } from '~/store';
 
 export default function RouteWrapper({
   component: Component,
