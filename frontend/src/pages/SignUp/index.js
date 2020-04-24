@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import Select from '~/styles/components/TechSelect';
@@ -8,6 +9,8 @@ import { TextualContent } from '~/styles/components/TextualContent';
 import { SubmitButton } from '~/styles/components/Button';
 
 import { TechsObject } from '~/pages/utils/TechsObject';
+
+import { signUpRequest } from '~/store/modules/auth/actions';
 
 const schemaValidation = Yup.object().shape({
   name: Yup.string().required('Name is required'),
@@ -24,6 +27,8 @@ const schemaValidation = Yup.object().shape({
 });
 
 export default function SignUp() {
+  const dispatch = useDispatch();
+
   const selectStyle = {
     control: (_, state) => ({
       // none of react-select's styles are passed to <Control />
@@ -37,8 +42,8 @@ export default function SignUp() {
     DropdownIndicator: null,
   };
 
-  function handleSubmit(data) {
-    console.tron.log(data);
+  function handleSubmit({ name, email, password, techs }) {
+    dispatch(signUpRequest(name, email, password, techs));
   }
 
   return (

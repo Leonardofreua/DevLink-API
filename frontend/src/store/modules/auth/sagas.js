@@ -26,4 +26,26 @@ export function* logIn({ payload }) {
   }
 }
 
-export default all([takeLatest('@auth/LOG_IN_REQUEST', logIn)]);
+export function* signUp({ payload }) {
+  try {
+    const { name, email, password, techs } = payload;
+
+    yield call(api.post, 'devs', {
+      name,
+      email,
+      password,
+      techs,
+    });
+
+    history.push('/logIn');
+  } catch (err) {
+    toast.error('Sign up failed, check you data');
+
+    yield put(signFailure());
+  }
+}
+
+export default all([
+  takeLatest('@auth/LOG_IN_REQUEST', logIn),
+  takeLatest('@auth/SIGN_UP_REQUEST', signUp),
+]);
