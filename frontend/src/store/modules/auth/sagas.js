@@ -3,21 +3,25 @@ import { takeLatest, call, put, all } from 'redux-saga/effects';
 import history from '~/services/history';
 import api from '~/services/api';
 
-import { logInSuccess } from './actions';
+import { logInSuccess, signFailure } from './actions';
 
 export function* logIn({ payload }) {
-  const { email, password } = payload;
+  try {
+    const { email, password } = payload;
 
-  const response = yield call(api.post, 'sessions', {
-    email,
-    password,
-  });
+    const response = yield call(api.post, 'sessions', {
+      email,
+      password,
+    });
 
-  const { token, dev } = response.data;
+    const { token, dev } = response.data;
 
-  yield put(logInSuccess(token, dev));
+    yield put(logInSuccess(token, dev));
 
-  history.push('/home');
+    history.push('/home');
+  } catch (err) {
+    yield put(signFailure());
+  }
 }
 
 export default all([takeLatest('@auth/LOG_IN_REQUEST', logIn)]);

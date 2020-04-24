@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 import { FaGithub } from 'react-icons/fa';
@@ -20,6 +20,7 @@ const schemaValidation = Yup.object().shape({
 
 export default function LogIn() {
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
 
   function handleSubmit({ email, password }) {
     dispatch(logInRequest(email, password));
@@ -47,7 +48,7 @@ export default function LogIn() {
           <Input name="email" type="email" placeholder="Email" />
           <Input name="password" type="password" placeholder="Password" />
 
-          <SubmitButton>Log in</SubmitButton>
+          <SubmitButton>{loading ? 'Loading...' : 'Log in'}</SubmitButton>
         </Form>
 
         <div>
