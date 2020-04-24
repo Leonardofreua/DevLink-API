@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 
 import Dev from '../models/Dev';
 
-import parseStringAsArray from '../utils/parseStringAsArray';
+import parseArrayObjectsToArrayStrings from '../utils/parseArrayObjectsToArrayStrings';
 
 class DevController {
   async store(req, res) {
@@ -30,7 +30,7 @@ class DevController {
         name,
         email,
         password,
-        techs: parseStringAsArray(techs),
+        techs: parseArrayObjectsToArrayStrings(techs),
       });
 
       return res.json(dev);

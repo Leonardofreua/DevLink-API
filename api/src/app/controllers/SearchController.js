@@ -1,6 +1,6 @@
 import Dev from '../models/Dev';
 
-import parseStringAsArray from '../utils/parseStringAsArray';
+import parseArrayObjectsToArrayStrings from '../utils/parseArrayObjectsToArrayStrings';
 
 class SearchController {
   async index(req, res) {
@@ -13,7 +13,7 @@ class SearchController {
 
     const searchCriteria = {
       techs: {
-        $in: parseStringAsArray(techs),
+        $in: parseArrayObjectsToArrayStrings(techs),
       },
       location: {
         $near: {
