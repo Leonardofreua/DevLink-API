@@ -1,8 +1,11 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 import { FaGithub } from 'react-icons/fa';
 import * as Yup from 'yup';
+
+import { logInRequest } from '~/store/modules/auth/actions';
 
 import { LoginContainer, GithubLoginButton } from './styles';
 import { TextualContent } from '~/styles/components/TextualContent';
@@ -16,8 +19,10 @@ const schemaValidation = Yup.object().shape({
 });
 
 export default function LogIn() {
-  function handleSubmit(data) {
-    console.tron.log(data);
+  const dispatch = useDispatch();
+
+  function handleSubmit({ email, password }) {
+    dispatch(logInRequest(email, password));
   }
 
   return (
@@ -40,8 +45,8 @@ export default function LogIn() {
 
         <Form schema={schemaValidation} onSubmit={handleSubmit}>
           <Input name="email" type="email" placeholder="Email" />
-
           <Input name="password" type="password" placeholder="Password" />
+
           <SubmitButton>Log in</SubmitButton>
         </Form>
 
