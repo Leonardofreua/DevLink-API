@@ -78,7 +78,7 @@ class ForgotPassowrdController {
 
   async update(req, res) {
     const schema = Yup.object().shape({
-      newPassword: Yup.string()
+      password: Yup.string()
         .min(6)
         .required(),
       confirmPassword: Yup.string().when('newPassword', (newPassword, field) =>
