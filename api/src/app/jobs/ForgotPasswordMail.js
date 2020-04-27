@@ -14,7 +14,7 @@ class ForgotPasswordMail {
       template: 'resetPassword',
       context: {
         dev: name,
-        link: `${process.env.APP_URL}/resetPassword/${reset_password_token}`,
+        link: `http://localhost:3333/resetPassword/${reset_password_token}`,
       },
     });
   }

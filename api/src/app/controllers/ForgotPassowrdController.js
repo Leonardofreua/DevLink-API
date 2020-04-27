@@ -71,8 +71,9 @@ class ForgotPassowrdController {
         .json({ message: 'Password reset token is invalid or has expired.' });
     }
 
-    // TODO add route to reset password page
-    res.redirect(200, `http://localhost:3000?passwd_token=${passwd_token}`);
+    res.redirect(
+      `http://localhost:3000/resetPassword?passwd_token=${passwd_token}`
+    );
   }
 
   async update(req, res) {
