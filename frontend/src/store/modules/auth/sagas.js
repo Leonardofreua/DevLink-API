@@ -47,6 +47,20 @@ export function* signUp({ payload }) {
   }
 }
 
+export function* forgotPassowrd({ payload }) {
+  try {
+    const { email } = payload;
+
+    yield call(api.post, 'forgotPassword', { email });
+
+    history.push('/login');
+  } catch (err) {
+    toast.error('There was a problem, check the typed email');
+
+    yield put(signFailure());
+  }
+}
+
 export function setToken({ payload }) {
   if (!payload) return;
 
@@ -61,4 +75,5 @@ export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/LOG_IN_REQUEST', logIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
+  takeLatest('@auth/FORGOT_PASSWORD_REQUEST', forgotPassowrd),
 ]);

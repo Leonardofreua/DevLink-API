@@ -24,3 +24,10 @@ export function signFailure() {
     type: '@auth/SIGN_FAILURE',
   };
 }
+
+export function forgotPasswordRequest(email) {
+  return {
+    type: '@auth/FORGOT_PASSWORD_REQUEST',
+    payload: { email },
+  };
+}
