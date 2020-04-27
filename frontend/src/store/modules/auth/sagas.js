@@ -53,9 +53,31 @@ export function* forgotPassowrd({ payload }) {
 
     yield call(api.post, 'forgotPassword', { email });
 
-    history.push('/login');
+    history.push('/logIn');
   } catch (err) {
     toast.error('There was a problem, check the typed email');
+
+    yield put(signFailure());
+  }
+}
+
+export function* resetPassword({ payload }) {
+  try {
+    const { newPassword, confirmPassword } = payload;
+
+    const passwd_token = new URL(document.location).searchParams.get(
+      'passwd_token'
+    );
+
+    yield call(api.put, 'resetPassword', {
+      newPassword,
+      confirmPassword,
+      passwd_token,
+    });
+
+    history.push('/logIn');
+  } catch (err) {
+    toast.error('There was a problem, check your data');
 
     yield put(signFailure());
   }
@@ -76,4 +98,5 @@ export default all([
   takeLatest('@auth/LOG_IN_REQUEST', logIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
   takeLatest('@auth/FORGOT_PASSWORD_REQUEST', forgotPassowrd),
+  takeLatest('@auth/RESET_PASSWORD_REQUEST', resetPassword),
 ]);

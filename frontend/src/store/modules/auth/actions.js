@@ -31,3 +31,10 @@ export function forgotPasswordRequest(email) {
     payload: { email },
   };
 }
+
+export function resetPasswordRequest(newPassword, confirmPassword) {
+  return {
+    type: '@auth/RESET_PASSWORD_REQUEST',
+    payload: { newPassword, confirmPassword },
+  };
+}
