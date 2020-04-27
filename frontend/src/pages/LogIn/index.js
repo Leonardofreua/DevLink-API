@@ -40,7 +40,7 @@ export default function LogIn() {
       <LoginContainer>
         <h2>Log_in</h2>
 
-        <GithubLoginButton to="/">
+        <GithubLoginButton to="/oauth/github">
           <FaGithub size={22} color="#FFF" /> With <strong>Github</strong>
         </GithubLoginButton>
 

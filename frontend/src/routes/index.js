@@ -14,6 +14,13 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={SignUp} />
       <Route path="/logIn" component={LogIn} />
+      <Route
+        path="/oauth/github"
+        component={() => {
+          window.location.href = `https://github.com/login/oauth/authorize?client_id=a04968e35e9d44eeb8f8`;
+        }}
+      />
+
       <Route path="/forgotPassword" component={ForgotPassword} />
       <Route path="/resetPassword" component={ResetPassword} />
 
