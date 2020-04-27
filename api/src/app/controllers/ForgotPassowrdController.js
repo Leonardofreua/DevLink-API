@@ -50,7 +50,7 @@ class ForgotPassowrdController {
         reset_password_token,
       });
 
-      res
+      return res
         .status(200)
         .json({ message: `A reset email has been sent to ${email}.` });
     }
