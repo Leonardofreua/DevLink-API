@@ -1,10 +1,12 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 
+import axios from 'axios';
 import history from '~/services/history';
 import api from '~/services/api';
+// import { githubOAuth } from '~/services/githubOAuth';
 
-import { logInSuccess, signFailure } from './actions';
+import { logInSuccess, githubOAuthSuccess, signFailure } from './actions';
 
 export function* logIn({ payload }) {
   try {
@@ -24,6 +26,25 @@ export function* logIn({ payload }) {
     history.push('/home');
   } catch (err) {
     toast.error('Authentication failed, check your Email and Password');
+    yield put(signFailure());
+  }
+}
+
+export function* githubLogin({ payload }) {
+  try {
+    const { requestToken } = payload;
+
+    const response = yield call(api.post, 'githubSessions', { requestToken });
+
+    const { token, dev } = response.data;
+
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
+    yield put(githubOAuthSuccess(token, dev));
+
+    history.push('/home');
+  } catch (err) {
+    toast.error('Authentication failed, check your data');
     yield put(signFailure());
   }
 }
@@ -96,6 +117,7 @@ export function setToken({ payload }) {
 export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/LOG_IN_REQUEST', logIn),
+  takeLatest('@auth/GITHUB_OAUTH_REQUEST', githubLogin),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
   takeLatest('@auth/FORGOT_PASSWORD_REQUEST', forgotPassowrd),
   takeLatest('@auth/RESET_PASSWORD_REQUEST', resetPassword),

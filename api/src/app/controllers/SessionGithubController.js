@@ -8,7 +8,7 @@ import authConfig from '../../config/auth';
 
 class SessionGithubController {
   async store(req, res) {
-    const requestToken = req.query.code;
+    const { requestToken } = req.body;
 
     /**
      * Logging into Github with OAuth.
@@ -45,29 +45,33 @@ class SessionGithubController {
       html_url,
     } = apiResponse.data;
 
-    const dev = await Dev.findOne().or([{ email }, { github_username: login }]);
-
-    const socialMedia = {
-      github_url: html_url,
-    };
+    const dev = await Dev.findOne()
+      .or([{ email }, { github_username: login }])
+      .populate('file', 'name path file_url')
+      .exec();
 
     let result = {};
 
     if (dev) {
-      const { _id } = dev;
+      const { _id, file } = dev;
 
       result = {
         dev: {
           _id,
           name: dev.name,
           email,
+          avatar: file || avatar_url,
         },
         token: jwt.sign({ _id }, authConfig.secret, {
           expiresIn: authConfig.expiresIn,
         }),
       };
     } else {
-      const { _id } = await Dev.create({
+      const socialMedia = {
+        github_url: html_url,
+      };
+
+      const { _id, file } = await Dev.create({
         name,
         email,
         github_username: login,
@@ -83,6 +87,7 @@ class SessionGithubController {
           _id,
           name,
           email,
+          avatar: file || avatar_url,
         },
         token: jwt.sign({ _id }, authConfig.secret, {
           expiresIn: authConfig.expiresIn,

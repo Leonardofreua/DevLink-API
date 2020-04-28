@@ -4,6 +4,7 @@ import Route from './Route';
 
 import SignUp from '~/pages/SignUp';
 import LogIn from '~/pages/LogIn';
+import GithubSession from '~/pages/GithubSession';
 import ForgotPassword from '~/pages/ForgotPassword';
 import ResetPassword from '~/pages/ResetPassword';
 
@@ -20,7 +21,7 @@ export default function Routes() {
           window.location.href = `https://github.com/login/oauth/authorize?client_id=a04968e35e9d44eeb8f8`;
         }}
       />
-
+      <Route path="/githubSessions" component={GithubSession} />
       <Route path="/forgotPassword" component={ForgotPassword} />
       <Route path="/resetPassword" component={ResetPassword} />
 

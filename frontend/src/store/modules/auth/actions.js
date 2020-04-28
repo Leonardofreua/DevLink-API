@@ -1,3 +1,5 @@
+/* * Log in with Sign Up data * */
+
 export function logInRequest(email, password) {
   return {
     type: '@auth/LOG_IN_REQUEST',
@@ -8,6 +10,22 @@ export function logInRequest(email, password) {
 export function logInSuccess(token, dev) {
   return {
     type: '@auth/LOG_IN_SUCCESS',
+    payload: { token, dev },
+  };
+}
+
+/* *  Log in with Github account * */
+
+export function githubOAuthRequest(requestToken) {
+  return {
+    type: '@auth/GITHUB_OAUTH_REQUEST',
+    payload: { requestToken },
+  };
+}
+
+export function githubOAuthSuccess(token, dev) {
+  return {
+    type: '@auth/GITHUB_OAUTH_SUCCESS',
     payload: { token, dev },
   };
 }

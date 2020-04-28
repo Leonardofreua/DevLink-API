@@ -17,7 +17,7 @@ const upload = multer(multerConfig);
 routes.post('/devs', DevController.store);
 
 routes.post('/sessions', SessionController.store);
-routes.get('/githubSessions', SessionGithubController.store);
+routes.post('/githubSessions', SessionGithubController.store);
 
 routes.post('/forgotPassword', ForgotPassowrdController.edit);
 

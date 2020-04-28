@@ -19,6 +19,16 @@ export default function auth(state = INITIAL_STATE, action) {
         draft.loading = false;
         break;
       }
+      case '@auth/GITHUB_OAUTH_REQUEST': {
+        draft.loading = true;
+        break;
+      }
+      case '@auth/GITHUB_OAUTH_SUCCESS': {
+        draft.token = action.payload.token;
+        draft.signed = true;
+        draft.loading = false;
+        break;
+      }
       case '@auth/SIGN_FAILURE': {
         draft.loading = false;
         break;
