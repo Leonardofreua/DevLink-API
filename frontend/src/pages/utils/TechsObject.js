@@ -9,7 +9,7 @@ export const TechsObject = [
   { value: 'python', label: 'Python' },
   { value: 'java', label: 'Java' },
   { value: 'ruby', label: 'Ruby' },
-  { value: 'rust', label: 'rust' },
+  { value: 'rust', label: 'Rust' },
   { value: 'go', label: 'Go' },
   { value: 'lua', label: 'Lua' },
   { value: 'typescript', label: 'TypeScript' },
