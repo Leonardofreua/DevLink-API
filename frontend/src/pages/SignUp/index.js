@@ -2,11 +2,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
-import Select from '~/styles/components/TechSelect';
 
 import { SignUpContainer } from './styles';
 import { TextualContent } from '~/styles/components/TextualContent';
 import { SubmitButton } from '~/styles/components/Button';
+import Select from '~/styles/components/TechSelect';
 
 import { TechsObject } from '~/pages/utils/TechsObject';
 
