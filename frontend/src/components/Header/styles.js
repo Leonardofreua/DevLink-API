@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { lighten } from 'polished';
 
 export const ContainerHeader = styled.header`
   background: #24292e;
@@ -34,7 +35,86 @@ export const Content = styled.div`
   }
 `;
 
-export const Profile = styled.div``;
+export const Profile = styled.div`
+  display: flex;
+  margin-left: 20px;
+  padding-left: 20px;
+
+  div {
+    text-align: right;
+    margin-right: 10px;
+  }
+`;
+
+export const Dropdown = styled.button`
+  background: none;
+  border: 0;
+  position: relative;
+
+  img {
+    height: 32px;
+    border-radius: 50%;
+  }
+
+  &::after {
+    content: '';
+    width: 0;
+    height: 0;
+    margin-left: 9px;
+    vertical-align: middle;
+    border-top-style: solid;
+    border-top-width: 4px;
+    border-top: 4px solid #c4c4c4;
+    border-right: 4px solid transparent;
+    border-bottom: 0 solid transparent;
+    border-left: 4px solid transparent;
+  }
+`;
+
+export const DropdownMenu = styled.div`
+  position: absolute;
+  width: 120px;
+  left: calc(90% - 17px);
+  top: 70px;
+  background: #fff;
+  padding: 15px 5px;
+  background-clip: padding-box;
+  border: 1px solid #dcdce6;
+  border-radius: 7px;
+  box-shadow: 2px 4px 18px -6px rgba(0, 0, 0, 0.75);
+  display: ${(props) => (props.visible ? 'block' : 'none')};
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: calc(57% - 20px);
+    top: -20px;
+    width: 0;
+    height: 0;
+    margin-top: 5px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid #fff;
+  }
+
+  a:last-of-type {
+    margin-top: 13px;
+    padding-bottom: 0;
+    border-top: 1px solid rgba(27, 31, 35, 0.15);
+  }
+
+  a {
+    display: flex;
+    padding: 10px;
+    text-decoration: none;
+    color: #000;
+    font-weight: 400;
+  }
+
+  a:hover {
+    color: ${lighten(0.2, '#000')};
+  }
+`;
 
 export const Options = styled.div`
   margin-right: 60px;
