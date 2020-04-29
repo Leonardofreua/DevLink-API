@@ -97,10 +97,13 @@ export const DropdownMenu = styled.div`
     border-bottom: 15px solid #fff;
   }
 
-  a:last-of-type {
+  button {
+    display: flex;
+    background: none;
+    border: none;
     margin-top: 13px;
+    padding: 10px;
     padding-bottom: 0;
-    border-top: 1px solid rgba(27, 31, 35, 0.15);
   }
 
   a {
@@ -109,6 +112,7 @@ export const DropdownMenu = styled.div`
     text-decoration: none;
     color: #000;
     font-weight: 400;
+    border-bottom: 1px solid rgba(27, 31, 35, 0.15);
   }
 
   a:hover {

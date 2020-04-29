@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import { signOut } from '~/store/modules/auth/actions';
 
 import {
   ContainerHeader,
@@ -17,9 +19,14 @@ export default function Header() {
   const [visible, setVisibile] = useState(false);
 
   const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   function handleToggleVisible() {
     setVisibile(!visible);
+  }
+
+  function handleSignOut() {
+    dispatch(signOut());
   }
 
   return (
@@ -46,7 +53,9 @@ export default function Header() {
 
               <DropdownMenu visible={visible}>
                 <Link to="/profile">Profile</Link>
-                <Link to="/signOut">Sign out</Link>
+                <button type="button" onClick={handleSignOut}>
+                  Sign out
+                </button>
               </DropdownMenu>
             </Profile>
           ) : (
