@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MdSearch } from 'react-icons/md';
 import { toast } from 'react-toastify';
@@ -15,6 +15,9 @@ import {
 import { TechsObject } from '~/pages/utils/TechsObject';
 
 export default function Home() {
+  const [lati, setLati] = useState('');
+  const [long, setLong] = useState('');
+
   const selectStyle = {
     control: (_, state) => ({
       boxShadow: state.isFocused ? 0 : 0,
@@ -26,19 +29,29 @@ export default function Home() {
   };
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-      },
-      (err) => {
-        toast.warn(
-          "There was a problem retrieving your location. Please check your browser's location permissions."
+    navigator.permissions.query({ name: 'geolocation' }).then((permission) => {
+      if (permission.state === 'granted') {
+        toast.success('Location enabled');
+      } else if (permission.state === 'prompt') {
+        navigator.geolocation.getCurrentPosition(
+          (revealPosition) => {
+            const { latitude, longitude } = revealPosition.coords;
+
+            setLati(latitude);
+            setLong(longitude);
+            toast.success('Location enabled');
+          },
+          (err) => {
+            toast.warn('Location disabled');
+          },
+          {
+            timeout: 30000,
+          }
         );
-      },
-      {
-        timeout: 30000,
+      } else if (permission.state === 'denied') {
+        toast.warn('Location disabled');
       }
-    );
+    });
   }, []);
 
   return (
@@ -84,9 +97,9 @@ export default function Home() {
               industry. Lorem Ipsum has been the industry's standard dummy text
               ever since the 1500s, when an
             </p>
-            <a href="#" target="_blank">
+            {/* <a href="#" target="_blank">
               Access Github profile
-            </a>
+            </a> */}
           </li>
 
           <li>
@@ -105,9 +118,9 @@ export default function Home() {
               industry. Lorem Ipsum has been the industry's standard dummy text
               ever since the 1500s, when an
             </p>
-            <a href="#" target="_blank">
+            {/* <a href="#" target="_blank">
               Access Github profile
-            </a>
+            </a> */}
           </li>
 
           <li>
@@ -126,9 +139,9 @@ export default function Home() {
               industry. Lorem Ipsum has been the industry's standard dummy text
               ever since the 1500s, when an
             </p>
-            <a href="#" target="_blank">
+            {/* <a href="#" target="_blank">
               Access Github profile
-            </a>
+            </a> */}
           </li>
 
           <li>
@@ -147,9 +160,9 @@ export default function Home() {
               industry. Lorem Ipsum has been the industry's standard dummy text
               ever since the 1500s, when an
             </p>
-            <a href="#" target="_blank">
+            {/* <a href="#" target="_blank">
               Access Github profile
-            </a>
+            </a> */}
           </li>
 
           <li>
@@ -170,9 +183,9 @@ export default function Home() {
               industry. Lorem Ipsum has been the industry's standard dummy text
               ever since the 1500s, when an
             </p>
-            <a href="#" target="_blank">
+            {/* <a href="#" target="_blank">
               Access Github profile
-            </a>
+            </a> */}
           </li>
         </ul>
       </List>

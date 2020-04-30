@@ -14,7 +14,7 @@ export const SearchForm = styled(Form)`
 
 export const TechsSelect = styled(Select)`
   width: 100%;
-  max-width: 420px;
+  max-width: 450px;
   margin-right: 8px;
   padding: 5px;
   background: #e6e6f4;
