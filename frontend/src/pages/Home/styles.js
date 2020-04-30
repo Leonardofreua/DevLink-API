@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import { Form } from '@rocketseat/unform';
 import { lighten } from 'polished';
 
 import Select from '~/styles/components/TechSelect';
 
-export const SearchForm = styled(Form)`
+export const SearchForm = styled.form`
   display: flex;
   width: 100%;
   max-width: 480px;
@@ -35,6 +34,7 @@ export const SearchButton = styled.button`
 
 export const List = styled.main`
   flex: 1;
+  margin: 0 auto;
 
   ul {
     display: grid;
@@ -67,6 +67,12 @@ export const List = styled.main`
         color: ${lighten(0.1, '#0F862A')};
       }
     }
+  }
+
+  span {
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
   }
 `;
 
