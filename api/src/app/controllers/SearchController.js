@@ -6,14 +6,14 @@ class SearchController {
   async index(req, res) {
     const { page = 1 } = req.query;
 
-    const { techs } = req.body;
+    const { techs } = req.body; // TODO: change to req.query
     const { latitude, longitude } = req.query;
 
     const resultsPerPage = 10;
 
     let searchCriteria = {};
 
-    if (techs) {
+    if (techs && longitude && latitude) {
       searchCriteria = {
         techs: {
           $in: parseArrayObjectsToArrayStrings(techs),
@@ -28,7 +28,7 @@ class SearchController {
           },
         },
       };
-    } else {
+    } else if (longitude && latitude) {
       searchCriteria = {
         location: {
           $near: {
@@ -40,18 +40,29 @@ class SearchController {
           },
         },
       };
+    } else if (techs) {
+      searchCriteria = {
+        techs: {
+          $in: parseArrayObjectsToArrayStrings(techs),
+        },
+      };
     }
 
-    const dev = await Dev.find(searchCriteria)
-      .populate('file', 'name path file_url')
-      .skip((page - 1) * resultsPerPage)
-      .limit(resultsPerPage);
+    let dev = {};
 
-    const numOfDevs = await Dev.count(searchCriteria);
+    if (Object.keys(searchCriteria).length > 0) {
+      dev = await Dev.find(searchCriteria)
+        .populate('file', 'name path file_url')
+        .skip((page - 1) * resultsPerPage)
+        .limit(resultsPerPage)
+        .exec();
 
-    res.header('X-Total-Count', numOfDevs);
+      const numOfDevs = await Dev.count(searchCriteria);
 
-    return res.json({ dev });
+      res.header('X-Total-Count', numOfDevs);
+    }
+
+    return res.json(dev);
   }
 
   async show(req, res) {
