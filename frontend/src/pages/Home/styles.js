@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Form } from '@rocketseat/unform';
-import { darken } from 'polished';
+import { lighten } from 'polished';
 
 import Select from '~/styles/components/TechSelect';
 
@@ -56,7 +56,7 @@ export const List = styled.main`
       }
 
       a {
-        color: #28a745;
+        color: #187026;
         font-size: 14px;
         font-weight: 600;
         text-decoration: none;
@@ -64,7 +64,7 @@ export const List = styled.main`
       }
 
       a:hover {
-        color: ${darken(0.1, '#28a745')};
+        color: ${lighten(0.1, '#0F862A')};
       }
     }
   }
