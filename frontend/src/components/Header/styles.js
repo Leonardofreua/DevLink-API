@@ -74,7 +74,7 @@ export const Dropdown = styled.button`
 export const DropdownMenu = styled.div`
   position: absolute;
   width: 120px;
-  left: calc(85% - 9px);
+  left: calc(88%);
   top: 70px;
   background: #fff;
   padding: 15px 5px;

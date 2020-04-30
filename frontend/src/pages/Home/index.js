@@ -51,10 +51,6 @@ export default function Home() {
     );
   }
 
-  function handleAvatar(data) {
-
-  }
-
   /**
    * Get the current location if granted permission
    */
@@ -133,25 +129,31 @@ export default function Home() {
             {devs.map((dev) => (
               <li key={dev._id}>
                 <UserSection>
-                  <Link to="/profile/1">
+                  <Link to={`/profile/${dev._id}`}>
                     <img
-                      src="https://avatars3.githubusercontent.com/u/11354911?s=460&u=956e5179cef8beb271883cc985b0e577c3482862&v=4"
-                      alt="Leonardo Freua"
+                      src={
+                        (dev.file && dev.file.file_url) ||
+                        dev.avatar_url ||
+                        'http://api.adorable.io/avatars/50/abott@adorable.png'
+                      }
+                      alt={dev.name}
                     />
                   </Link>
                   <div>
-                    <strong>Leonardo</strong>
-                    <span>ReactJS, Python</span>
+                    <strong>{dev.name}</strong>
+                    <span>{dev.techs.join(', ')}</span>
                   </div>
                 </UserSection>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an
-                </p>
-                {/* <a href="#" target="_blank">
-                Access Github profile
-              </a> */}
+                <p>{dev.bio}</p>
+                {dev.socialMedia && (
+                  <a
+                    href={dev.socialMedia.github_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Access Github profile
+                  </a>
+                )}
               </li>
             ))}
           </ul>
