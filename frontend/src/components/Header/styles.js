@@ -13,7 +13,7 @@ export const ContainerHeader = styled.header`
 
 export const Content = styled.div`
   height: 64px;
-  max-width: 1330px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -74,7 +74,7 @@ export const Dropdown = styled.button`
 export const DropdownMenu = styled.div`
   position: absolute;
   width: 120px;
-  left: calc(90% - 17px);
+  left: calc(85% - 9px);
   top: 70px;
   background: #fff;
   padding: 15px 5px;
