@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MdSearch } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 import {
   SearchForm,
@@ -23,6 +24,22 @@ export default function Home() {
   const components = {
     DropdownIndicator: null,
   };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+      },
+      (err) => {
+        toast.warn(
+          "There was a problem retrieving your location. Please check your browser's location permissions."
+        );
+      },
+      {
+        timeout: 30000,
+      }
+    );
+  }, []);
 
   return (
     <>
