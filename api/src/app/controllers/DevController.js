@@ -102,6 +102,7 @@ class DevController {
         _id,
         name,
         email,
+        location,
         avatar: file || avatar_url,
       });
     }
