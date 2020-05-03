@@ -33,43 +33,47 @@ export default function Home() {
     DropdownIndicator: null,
   };
 
-  function getCurrentLocation() {
-    navigator.geolocation.getCurrentPosition(
-      (revealPosition) => {
-        const { coords } = revealPosition;
-
-        setLongitude(coords.longitude);
-        setLatitude(coords.latitude);
-        toast.success('Location enabled');
-      },
-      (err) => {
-        toast.warn('Location disabled');
-      },
-      {
-        timeout: 30000,
-      }
-    );
-  }
-
   /**
    * Get the current location if granted permission
    */
   useEffect(() => {
-    navigator.permissions.query({ name: 'geolocation' }).then((permission) => {
-      if (permission.state === 'granted' || permission.state === 'prompt') {
-        getCurrentLocation();
-      } else if (permission.state === 'denied') {
-        toast.warn('Location disabled');
-      }
-    });
-  }, []);
+    function getCurrentUserLocation() {
+      navigator.permissions
+        .query({ name: 'geolocation' })
+        .then((permission) => {
+          if (permission.state === 'granted' || permission.state === 'prompt') {
+            navigator.geolocation.getCurrentPosition(
+              async (revealPosition) => {
+                const { coords } = revealPosition;
+
+                setLongitude(coords.longitude);
+                setLatitude(coords.latitude);
+
+                await api.put('/devs', { longitude, latitude });
+                toast.success('Location enabled');
+              },
+              (err) => {
+                toast.warn('Location disabled');
+              },
+              {
+                timeout: 30000,
+              }
+            );
+          } else if (permission.state === 'denied') {
+            toast.warn('Location disabled');
+          }
+        });
+    }
+
+    getCurrentUserLocation();
+  }, [longitude, latitude]);
 
   /**
    * Populates the state of devs if the user does not inform any
    * technology and the coordinates are filled.
    */
   useEffect(() => {
-    async function loadDevsByCoordinates() {
+    async function loadDevsByLocation() {
       if (Object.keys(techs).length === 0 && longitude && latitude) {
         const response = await api.get('/search', {
           params: {
@@ -81,7 +85,7 @@ export default function Home() {
       }
     }
 
-    loadDevsByCoordinates();
+    loadDevsByLocation();
   }, [techs, longitude, latitude]);
 
   async function handleSearch(event) {
@@ -101,6 +105,8 @@ export default function Home() {
 
   return (
     <>
+      <p>Longitude: {longitude}</p>
+      <p>Latitude: {latitude}</p>
       <SearchForm onSubmit={handleSearch}>
         <TechsSelect
           name="techs"
