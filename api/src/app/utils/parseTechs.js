@@ -1,4 +1,4 @@
-export function parseArrayObjectsToArrayStrings(arrayAsObject) {
+export function parseArrayObjectsToString(arrayAsObject) {
   return arrayAsObject.map(({ label }) => label);
 }
 
