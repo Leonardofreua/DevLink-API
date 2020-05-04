@@ -52,8 +52,8 @@ class DevController {
         password ? field.required().oneOf([Yup.ref('password')]) : field
       ),
       techs: Yup.string(),
-      latitude: Yup.number(),
-      longitude: Yup.number(),
+      latitude: Yup.string(),
+      longitude: Yup.string(),
     });
 
     if (await schema.isValid(req.body)) {
