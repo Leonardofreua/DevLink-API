@@ -24,6 +24,7 @@ export default function Home() {
 
   const [devs, setDevs] = useState([]);
   const [techs, setTechs] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const [longitude, setLongitude] = useState('');
   const [latitude, setLatitude] = useState('');
@@ -102,6 +103,7 @@ export default function Home() {
           },
         });
         setDevs(response.data);
+        setTotal(response.data.length);
       }
     }
 
@@ -125,8 +127,6 @@ export default function Home() {
 
   return (
     <>
-      <p>Longitude: {longitude}</p>
-      <p>Latitude: {latitude}</p>
       <SearchForm onSubmit={handleSearch}>
         <TechsSelect
           name="techs"
@@ -145,8 +145,10 @@ export default function Home() {
       </SearchForm>
 
       <ResultLegend>
-        There’re <strong>6</strong> people near you who <u>know</u> or are{' '}
-        <u>learning</u>: <strong>React and NodeJS</strong>
+        There’re <strong>{total}</strong> people near you
+        {techs.length === 0
+          ? ''
+          : ` who know or are learning: ${techs.join(', ')}`}
       </ResultLegend>
 
       <List>
