@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 
 import Dev from '../models/Dev';
 
-import parseArrayObjectsToArrayStrings from '../utils/parseArrayObjectsToArrayStrings';
+import { parseArrayObjectsToArrayStrings } from '../utils/parseTechs';
 
 class DevController {
   async store(req, res) {

@@ -6,15 +6,16 @@ import Select from '~/styles/components/TechSelect';
 export const SearchForm = styled.form`
   display: flex;
   width: 100%;
-  max-width: 480px;
+  max-width: 520px;
   margin-top: 30px;
   align-items: center;
 `;
 
 export const TechsSelect = styled(Select)`
   width: 100%;
-  max-width: 450px;
+  max-width: 470px;
   margin-right: 8px;
+  margin-left: 20px;
   padding: 5px;
   background: #e6e6f4;
   border: 1px solid #dcdce6;
@@ -23,6 +24,7 @@ export const TechsSelect = styled(Select)`
 `;
 
 export const ResultLegend = styled.div`
+  max-width: 470px;
   margin: 40px 0 25px;
 `;
 

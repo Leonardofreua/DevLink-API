@@ -1,22 +1,23 @@
 import Dev from '../models/Dev';
 
-import parseArrayObjectsToArrayStrings from '../utils/parseArrayObjectsToArrayStrings';
+import { parseStringAsArray } from '../utils/parseTechs';
 
 class SearchController {
   async index(req, res) {
     const { page = 1 } = req.query;
 
-    const { techs } = req.body; // TODO: change to req.query
-    const { latitude, longitude } = req.query;
+    const { techs, latitude, longitude } = req.query;
 
     const resultsPerPage = 10;
 
     let searchCriteria = {};
+    let techsArray = [];
 
     if (techs && longitude && latitude) {
+      techsArray = parseStringAsArray(techs);
       searchCriteria = {
         techs: {
-          $in: parseArrayObjectsToArrayStrings(techs),
+          $in: techsArray,
         },
         location: {
           $near: {
@@ -40,10 +41,11 @@ class SearchController {
           },
         },
       };
-    } else if (techs) {
+    } else {
+      techsArray = parseStringAsArray(techs);
       searchCriteria = {
         techs: {
-          $in: parseArrayObjectsToArrayStrings(techs),
+          $in: techsArray,
         },
       };
     }
@@ -57,9 +59,9 @@ class SearchController {
         .limit(resultsPerPage)
         .exec();
 
-      const numOfDevs = await Dev.count(searchCriteria);
+      // const numOfDevs = await Dev.count(searchCriteria);
 
-      res.header('X-Total-Count', numOfDevs);
+      // res.header('X-Total-Count', numOfDevs);
     }
 
     return res.json(dev);

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdSearch } from 'react-icons/md';
 import { toast } from 'react-toastify';
+import { isEmpty } from 'lodash';
 
 import api from '~/services/api';
 
@@ -23,8 +24,10 @@ export default function Home() {
   const dispatch = useDispatch();
 
   const [devs, setDevs] = useState([]);
-  const [techs, setTechs] = useState([]);
+  const [techs, setTechs] = useState({});
   const [total, setTotal] = useState(0);
+  const [searched, setSearched] = useState(false);
+  const [techsParsed, setTechsParsed] = useState([]);
 
   const [longitude, setLongitude] = useState('');
   const [latitude, setLatitude] = useState('');
@@ -99,7 +102,7 @@ export default function Home() {
         return;
       }
 
-      if (techs.length === 0 && longitude && latitude) {
+      if (isEmpty(techs) && longitude && latitude) {
         const response = await api.get('/search', {
           params: {
             longitude,
@@ -117,16 +120,28 @@ export default function Home() {
   async function handleSearch(event) {
     event.preventDefault();
 
-    if (longitude && latitude) {
+    if (!isEmpty(techs) && longitude && latitude) {
       /**
        * Search with techs and coords
        */
-    } else {
+      const techsList = techs.map(({ label }) => label);
+      const response = await api.get('/search', {
+        params: {
+          techs: techsList.toString(),
+          longitude,
+          latitude,
+        },
+      });
+      setDevs(response.data);
+      setTotal(response.data.length);
+      setTechsParsed(techsList);
+      setSearched(true);
+    } else if (techs.length > 0) {
       /**
        * Search with only techs
        */
+      setSearched(true);
     }
-    // setTechs([]);
   }
 
   return (
@@ -150,9 +165,9 @@ export default function Home() {
 
       <ResultLegend>
         There’re <strong>{total}</strong> people near you
-        {techs.length === 0
-          ? ''
-          : ` who know or are learning: ${techs.join(', ')}`}
+        {!isEmpty(techs) && searched
+          ? ` who know or are learning: ${techsParsed.join(', ')}`
+          : ''}
       </ResultLegend>
 
       <List>
