@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdSearch } from 'react-icons/md';
 import { toast } from 'react-toastify';
@@ -16,7 +17,11 @@ import {
 
 import { TechsObject } from '~/pages/utils/TechsObject';
 
+import { setUserLocationRequest } from '~/store/modules/dev/actions';
+
 export default function Home() {
+  const dispatch = useDispatch();
+
   const [devs, setDevs] = useState([]);
   const [techs, setTechs] = useState([]);
 
@@ -32,6 +37,22 @@ export default function Home() {
   const components = {
     DropdownIndicator: null,
   };
+
+  useEffect(() => {
+    function checkPermissionStatus() {
+      navigator.permissions
+        .query({ name: 'geolocation' })
+        .then((permission) => {
+          if (permission.state === 'granted') {
+            toast.success('Location enabled');
+          } else if (permission.state === 'denied') {
+            toast.info('Location disabled');
+          }
+        });
+    }
+
+    checkPermissionStatus();
+  }, []);
 
   /**
    * Get the current location if granted permission
@@ -49,24 +70,23 @@ export default function Home() {
                 setLongitude(coords.longitude);
                 setLatitude(coords.latitude);
 
-                await api.put('/devs', { longitude, latitude });
-                toast.success('Location enabled');
+                dispatch(setUserLocationRequest(longitude, latitude));
               },
               (err) => {
-                toast.warn('Location disabled');
+                console.tron.log(err);
               },
               {
                 timeout: 30000,
               }
             );
           } else if (permission.state === 'denied') {
-            toast.warn('Location disabled');
+            dispatch(setUserLocationRequest(longitude, latitude));
           }
         });
     }
 
     getCurrentUserLocation();
-  }, [longitude, latitude]);
+  }, [longitude, latitude, dispatch]);
 
   /**
    * Populates the state of devs if the user does not inform any
@@ -74,7 +94,7 @@ export default function Home() {
    */
   useEffect(() => {
     async function loadDevsByLocation() {
-      if (Object.keys(techs).length === 0 && longitude && latitude) {
+      if (techs.length === 0 && longitude && latitude) {
         const response = await api.get('/search', {
           params: {
             longitude,

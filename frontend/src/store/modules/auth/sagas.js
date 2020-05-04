@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 
 import history from '~/services/history';
 import api from '~/services/api';
-// import { githubOAuth } from '~/services/githubOAuth';
 
 import { logInSuccess, githubOAuthSuccess, signFailure } from './actions';
 
