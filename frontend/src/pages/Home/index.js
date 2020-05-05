@@ -123,10 +123,21 @@ export default function Home() {
     loadDevsByLocation();
   }, [techs, longitude, latitude, total]);
 
+  /**
+   * Perform the user search using the following fields as base:
+   *
+   * @type {number} longitude
+   * @type {number} latitude
+   * @type {(String|Array)} techs
+   *
+   * @param {Array|Object} event from onChange of techs select
+   */
   async function handleSearch(event) {
     event.preventDefault();
 
-    if (!isEmpty(techs) && longitude && latitude) {
+    if (isEmpty(techs) && longitude && latitude) {
+      await searchUsers();
+    } else if (!isEmpty(techs) && longitude && latitude) {
       /**
        * Search with techs and coords
        */
@@ -136,7 +147,7 @@ export default function Home() {
 
       setTechsParsed(listTechs);
       setSearched(true);
-    } else if (techs.length > 0) {
+    } else if (!isEmpty(techs)) {
       /**
        * Search with only techs
        */
