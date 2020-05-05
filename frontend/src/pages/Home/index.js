@@ -17,6 +17,7 @@ import {
 } from './styles';
 
 import { TechsObject } from '~/pages/utils/TechsObject';
+import { parseArrayObjectsToString } from '~/pages/utils/parseTechs';
 
 import { setUserLocationRequest } from '~/store/modules/dev/actions';
 
@@ -92,6 +93,18 @@ export default function Home() {
     getCurrentUserLocation();
   }, [longitude, latitude, dispatch]);
 
+  async function searchUsers(techsArray = []) {
+    const response = await api.get('/search', {
+      params: {
+        techs: techsArray.toString(),
+        longitude,
+        latitude,
+      },
+    });
+    setDevs(response.data);
+    setTotal(response.data.length);
+  }
+
   /**
    * Populates the state of devs if the user does not inform any
    * technology and the coordinates are filled.
@@ -103,14 +116,7 @@ export default function Home() {
       }
 
       if (isEmpty(techs) && longitude && latitude) {
-        const response = await api.get('/search', {
-          params: {
-            longitude,
-            latitude,
-          },
-        });
-        setDevs(response.data);
-        setTotal(response.data.length);
+        await searchUsers();
       }
     }
 
@@ -124,22 +130,21 @@ export default function Home() {
       /**
        * Search with techs and coords
        */
-      const techsList = techs.map(({ label }) => label);
-      const response = await api.get('/search', {
-        params: {
-          techs: techsList.toString(),
-          longitude,
-          latitude,
-        },
-      });
-      setDevs(response.data);
-      setTotal(response.data.length);
-      setTechsParsed(techsList);
+      const listTechs = parseArrayObjectsToString(techs);
+
+      await searchUsers(listTechs);
+
+      setTechsParsed(listTechs);
       setSearched(true);
     } else if (techs.length > 0) {
       /**
        * Search with only techs
        */
+      const listTechs = parseArrayObjectsToString(techs);
+
+      await searchUsers(listTechs);
+
+      setTechsParsed(listTechs);
       setSearched(true);
     }
   }
