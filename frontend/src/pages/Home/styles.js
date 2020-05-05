@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { lighten } from 'polished';
 
 import Select from '~/styles/components/TechSelect';
@@ -75,6 +75,28 @@ export const List = styled.main`
     width: 100%;
     font-size: 18px;
     text-align: center;
+  }
+`;
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const Loading = styled.p`
+  width: 100%;
+  max-width: 50px;
+  padding-top: 100px;
+  text-align: center;
+  margin: 0 auto;
+
+  svg {
+    animation: ${rotate} 2s linear infinite;
   }
 `;
 

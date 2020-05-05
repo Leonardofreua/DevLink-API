@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdSearch } from 'react-icons/md';
+import { FaSpinner } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { isEmpty } from 'lodash';
 
@@ -14,10 +15,13 @@ import {
   ResultLegend,
   List,
   UserSection,
+  Loading,
 } from './styles';
 
 import { TechsObject } from '~/pages/utils/TechsObject';
 import { parseArrayObjectsToString } from '~/pages/utils/parseTechs';
+
+import Pagination from '~/components/Pagination';
 
 import { setUserLocationRequest } from '~/store/modules/dev/actions';
 
@@ -29,6 +33,9 @@ export default function Home() {
   const [total, setTotal] = useState(0);
   const [searched, setSearched] = useState(false);
   const [techsParsed, setTechsParsed] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [devsPerPage] = useState(10);
 
   const [longitude, setLongitude] = useState('');
   const [latitude, setLatitude] = useState('');
@@ -94,6 +101,7 @@ export default function Home() {
   }, [longitude, latitude, dispatch]);
 
   async function searchUsers(techsArray = []) {
+    setLoading(true);
     const response = await api.get('/search', {
       params: {
         techs: techsArray.toString(),
@@ -103,6 +111,7 @@ export default function Home() {
     });
     setDevs(response.data);
     setTotal(response.data.length);
+    setLoading(false);
   }
 
   /**
@@ -160,6 +169,14 @@ export default function Home() {
     }
   }
 
+  // Get current devs
+  const indexOfLastDev = currentPage * devsPerPage;
+  const indexOfFirstDev = indexOfLastDev - devsPerPage;
+  const currentDevs = devs.slice(indexOfFirstDev, indexOfLastDev);
+
+  // Change page
+  const paginate = (page) => setCurrentPage(page);
+
   return (
     <>
       <SearchForm onSubmit={handleSearch}>
@@ -187,42 +204,52 @@ export default function Home() {
       </ResultLegend>
 
       <List>
-        {devs.length > 0 ? (
-          <ul>
-            {devs.map((dev) => (
-              <li key={dev._id}>
-                <UserSection>
-                  <Link to={`/profile/${dev._id}`}>
-                    <img
-                      src={
-                        (dev.file && dev.file.file_url) ||
-                        dev.avatar_url ||
-                        'http://api.adorable.io/avatars/50/abott@adorable.png'
-                      }
-                      alt={dev.name}
-                    />
-                  </Link>
-                  <div>
-                    <strong>{dev.name}</strong>
-                    <span>{dev.techs.join(', ')}</span>
-                  </div>
-                </UserSection>
-                <p>{dev.bio}</p>
-                {dev.socialMedia && (
-                  <a
-                    href={dev.socialMedia.github_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Access Github profile
-                  </a>
-                )}
-              </li>
-            ))}
-          </ul>
+        {!isEmpty(devs) ? (
+          <>
+            <ul>
+              {currentDevs.map((dev) => (
+                <li key={dev._id}>
+                  <UserSection>
+                    <Link to={`/profile/${dev._id}`}>
+                      <img
+                        src={
+                          (dev.file && dev.file.file_url) ||
+                          dev.avatar_url ||
+                          'http://api.adorable.io/avatars/50/abott@adorable.png'
+                        }
+                        alt={dev.name}
+                      />
+                    </Link>
+                    <div>
+                      <strong>{dev.name}</strong>
+                      <span>{dev.techs.join(', ')}</span>
+                    </div>
+                  </UserSection>
+                  <p>{dev.bio}</p>
+                  {dev.socialMedia && (
+                    <a
+                      href={dev.socialMedia.github_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Access Github profile
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+            {total > 10 && (
+              <Pagination
+                dataPerPage={devsPerPage}
+                totalData={total}
+                paginate={paginate}
+              />
+            )}
+          </>
         ) : (
           <span>No people were found nearby!</span>
         )}
+        <Loading>{loading && <FaSpinner color="#187026" size={30} />}</Loading>
       </List>
     </>
   );

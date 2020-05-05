@@ -4,11 +4,7 @@ import { parseStringAsArray } from '../utils/parseTechs';
 
 class SearchController {
   async index(req, res) {
-    const { page = 1 } = req.query;
-
     const { techs, latitude, longitude } = req.query;
-
-    const resultsPerPage = 10;
 
     let searchCriteria = {};
     let techsArray = [];
@@ -55,9 +51,9 @@ class SearchController {
     if (Object.keys(searchCriteria).length > 0) {
       dev = await Dev.find(searchCriteria)
         .populate('file', 'name path file_url')
-        .skip((page - 1) * resultsPerPage)
-        .limit(resultsPerPage)
         .exec();
+      // .skip((page - 1) * resultsPerPage)
+      // .limit(resultsPerPage)
 
       // const numOfDevs = await Dev.count(searchCriteria);
 
