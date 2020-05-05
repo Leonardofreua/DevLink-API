@@ -26,6 +26,12 @@ export const TechsSelect = styled(Select)`
 export const ResultLegend = styled.div`
   max-width: 470px;
   margin: 40px 0 25px;
+
+  span {
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+  }
 `;
 
 export const SearchButton = styled.button`
@@ -69,12 +75,6 @@ export const List = styled.main`
         color: ${lighten(0.1, '#0F862A')};
       }
     }
-  }
-
-  span {
-    width: 100%;
-    font-size: 18px;
-    text-align: center;
   }
 `;
 

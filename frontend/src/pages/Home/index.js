@@ -197,58 +197,59 @@ export default function Home() {
       </SearchForm>
 
       <ResultLegend>
-        There’re <strong>{total}</strong> people near you
-        {!isEmpty(techs) && searched
-          ? ` who know or are learning: ${techsParsed.join(', ')}`
-          : ''}
-      </ResultLegend>
-
-      <List>
         {!isEmpty(devs) ? (
           <>
-            <ul>
-              {currentDevs.map((dev) => (
-                <li key={dev._id}>
-                  <UserSection>
-                    <Link to={`/profile/${dev._id}`}>
-                      <img
-                        src={
-                          (dev.file && dev.file.file_url) ||
-                          dev.avatar_url ||
-                          'http://api.adorable.io/avatars/50/abott@adorable.png'
-                        }
-                        alt={dev.name}
-                      />
-                    </Link>
-                    <div>
-                      <strong>{dev.name}</strong>
-                      <span>{dev.techs.join(', ')}</span>
-                    </div>
-                  </UserSection>
-                  <p>{dev.bio}</p>
-                  {dev.socialMedia && (
-                    <a
-                      href={dev.socialMedia.github_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Access Github profile
-                    </a>
-                  )}
-                </li>
-              ))}
-            </ul>
-            {total > 10 && (
-              <Pagination
-                dataPerPage={devsPerPage}
-                totalData={total}
-                paginate={paginate}
-              />
-            )}
+            There’re <strong>{total}</strong> people near you
+            {!isEmpty(techs) && searched
+              ? ` who know or are learning: ${techsParsed.join(', ')}`
+              : ''}
           </>
         ) : (
           <span>No people were found nearby!</span>
         )}
+      </ResultLegend>
+
+      <List>
+        <ul>
+          {currentDevs.map((dev) => (
+            <li key={dev._id}>
+              <UserSection>
+                <Link to={`/profile/${dev._id}`}>
+                  <img
+                    src={
+                      (dev.file && dev.file.file_url) ||
+                      dev.avatar_url ||
+                      'http://api.adorable.io/avatars/50/abott@adorable.png'
+                    }
+                    alt={dev.name}
+                  />
+                </Link>
+                <div>
+                  <strong>{dev.name}</strong>
+                  <span>{dev.techs.join(', ')}</span>
+                </div>
+              </UserSection>
+              <p>{dev.bio}</p>
+              {dev.socialMedia && (
+                <a
+                  href={dev.socialMedia.github_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Access Github profile
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+        {total > 10 && (
+          <Pagination
+            dataPerPage={devsPerPage}
+            totalData={total}
+            paginate={paginate}
+          />
+        )}
+
         <Loading>{loading && <FaSpinner color="#187026" size={30} />}</Loading>
       </List>
     </>
