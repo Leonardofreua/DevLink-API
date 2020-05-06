@@ -20,10 +20,10 @@ export default function Header() {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const [visible, setVisibile] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   function handleToggleVisible() {
-    setVisibile(!visible);
+    setVisible(!visible);
   }
 
   function handleSignOut() {
