@@ -3,11 +3,11 @@ import { Form, Input } from '@rocketseat/unform';
 
 import {
   Container,
+  Content,
   TitleForm,
-  PersonalInformation,
-  WhereElseOnlineInformation,
+  TechsSelect,
+  UpdateButton,
 } from './styles';
-import Select from '~/styles/components/TechSelect';
 
 import { TechsObject } from '~/pages/utils/TechsObject';
 
@@ -30,13 +30,13 @@ export default function Profile() {
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
-        <PersonalInformation>
+        <Content>
           <TitleForm>Your personal information</TitleForm>
 
           <Input name="name" placeholder="Your name" />
           <Input name="bio" multiline placeholder="Bio" />
           <Input name="email" type="email" placeholder="Your email" />
-          <Select
+          <TechsSelect
             name="techs"
             components={components}
             noOptionsMessage={() => 'Tech not found'}
@@ -60,9 +60,7 @@ export default function Profile() {
             type="password"
             placeholder="Confirm Password"
           />
-        </PersonalInformation>
 
-        <WhereElseOnlineInformation>
           <TitleForm>Where else are you online?</TitleForm>
 
           <Input name="github_url" placeholder="Github profile" />
@@ -71,7 +69,8 @@ export default function Profile() {
           <Input name="medium_url" placeholder="Medium link" />
           <Input name="twitter_url" placeholder="Twitter profile link" />
           <Input name="website_url" placeholder="Website link" />
-        </WhereElseOnlineInformation>
+        </Content>
+        <UpdateButton>Update Profile</UpdateButton>
       </Form>
     </Container>
   );
