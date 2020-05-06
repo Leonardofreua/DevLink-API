@@ -214,7 +214,7 @@ export default function Home() {
           {currentDevs.map((dev) => (
             <li key={dev._id}>
               <UserSection>
-                <Link to={`/profile/${dev._id}`}>
+                <Link to={`/${dev._id}`}>
                   <img
                     src={
                       (dev.file && dev.file.file_url) ||

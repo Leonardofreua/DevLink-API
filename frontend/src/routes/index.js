@@ -10,6 +10,7 @@ import ResetPassword from '~/pages/ResetPassword';
 
 import Home from '~/pages/Home';
 import Profile from '~/pages/Profile';
+import DevProfile from '~/pages/DevProfile';
 
 export default function Routes() {
   return (
@@ -28,6 +29,7 @@ export default function Routes() {
 
       <Route path="/home" component={Home} isPrivate />
       <Route path="/profile" component={Profile} isPrivate />
+      <Route path="/:id" component={DevProfile} isPrivate />
     </Switch>
   );
 }
