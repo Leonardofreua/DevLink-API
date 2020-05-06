@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 
 import Dev from '../models/Dev';
 
-import { parseArrayObjectsToString } from '../utils/parseTechs';
+import { parseArrayObjectsToStringArray } from '../utils/parseTechs';
 
 class DevController {
   async store(req, res) {
@@ -30,7 +30,7 @@ class DevController {
         name,
         email,
         password,
-        techs: parseArrayObjectsToString(techs),
+        techs: parseArrayObjectsToStringArray(techs),
       });
 
       return res.json(dev);
@@ -94,7 +94,15 @@ class DevController {
         }
       );
 
-      const { _id, name, avatar_url, file } = await Dev.findById(req.devId)
+      const {
+        _id,
+        name,
+        bio,
+        techs,
+        socialMedia,
+        avatar_url,
+        file,
+      } = await Dev.findById(req.devId)
         .populate('file', 'name path file_url')
         .exec();
 
@@ -102,7 +110,10 @@ class DevController {
         _id,
         name,
         email,
+        bio,
+        techs,
         location,
+        socialMedia,
         avatar: file || avatar_url,
       });
     }

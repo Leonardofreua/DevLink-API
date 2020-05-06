@@ -53,14 +53,17 @@ class SessionGithubController {
     let result = {};
 
     if (dev) {
-      const { _id, location, file } = dev;
+      const { _id, techs, location, socialMedia, file } = dev;
 
       result = {
         dev: {
           _id,
           name: dev.name,
           email,
+          bio: dev.bio,
+          techs,
           location,
+          socialMedia,
           avatar: file || avatar_url,
         },
         token: jwt.sign({ _id }, authConfig.secret, {

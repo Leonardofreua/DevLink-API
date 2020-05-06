@@ -1,5 +1,8 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
+
+import { updateProfileRequest } from '~/store/modules/dev/actions';
 
 import {
   Container,
@@ -12,6 +15,9 @@ import {
 import { TechsObject } from '~/pages/utils/TechsObject';
 
 export default function Profile() {
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state.dev.profile);
+
   const selectStyle = {
     control: (_, state) => ({
       // none of react-select's styles are passed to <Control />
@@ -25,16 +31,18 @@ export default function Profile() {
     DropdownIndicator: null,
   };
 
-  function handleSubmit() {}
+  function handleSubmit(data) {
+    dispatch(updateProfileRequest(data));
+  }
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
+      <Form initialData={profile} onSubmit={handleSubmit}>
         <Content>
           <TitleForm>Your personal information</TitleForm>
 
           <Input name="name" placeholder="Your name" />
-          <Input name="bio" multiline placeholder="Bio" />
+          <Input name="bio" multiline maxLength="160" placeholder="Bio" />
           <Input name="email" type="email" placeholder="Your email" />
           <TechsSelect
             name="techs"

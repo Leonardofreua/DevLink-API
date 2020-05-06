@@ -15,12 +15,16 @@ export default function dev(state = INITIAL_STATE, action) {
         draft.profile = action.payload.dev;
         break;
       }
+      case '@auth/SIGN_OUT': {
+        draft.profile = null;
+        break;
+      }
       case '@dev/SET_USER_LOCATION_SUCCESS': {
         Object.assign(draft.profile, { location: action.payload.location });
         break;
       }
-      case '@auth/SIGN_OUT': {
-        draft.profile = null;
+      case '@dev/UPDATE_PROFILE_SUCCESS': {
+        draft.profile = action.payload.profile;
         break;
       }
       default:
