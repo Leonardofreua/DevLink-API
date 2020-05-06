@@ -29,12 +29,33 @@ export function* setUserLocation({ payload }) {
 
 export function* updateProfile({ payload }) {
   try {
-    const { name, email, bio, ...rest } = payload.data;
+    const {
+      name,
+      email,
+      bio,
+      socialMedia: {
+        github_url,
+        linkedin_url,
+        youtube_url,
+        medium_url,
+        twitter_url,
+        website_url,
+      },
+      ...rest
+    } = payload.data;
 
     const profile = {
       name,
       email,
       bio,
+      socialMedia: {
+        github_url,
+        linkedin_url,
+        youtube_url,
+        medium_url,
+        twitter_url,
+        website_url,
+      },
       ...(rest.oldPassword ? rest : {}),
     };
 

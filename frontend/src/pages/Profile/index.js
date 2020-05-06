@@ -71,12 +71,21 @@ export default function Profile() {
 
           <TitleForm>Where else are you online?</TitleForm>
 
-          <Input name="github_url" placeholder="Github profile" />
-          <Input name="linkedin_url" placeholder="Linkedin profile" />
-          <Input name="youtube_url" placeholder="Youtube channel link" />
-          <Input name="medium_url" placeholder="Medium link" />
-          <Input name="twitter_url" placeholder="Twitter profile link" />
-          <Input name="website_url" placeholder="Website link" />
+          <Input name="socialMedia.github_url" placeholder="Github profile" />
+          <Input
+            name="socialMedia.linkedin_url"
+            placeholder="Linkedin profile"
+          />
+          <Input
+            name="socialMedia.youtube_url"
+            placeholder="Youtube channel link"
+          />
+          <Input name="socialMedia.medium_url" placeholder="Medium link" />
+          <Input
+            name="socialMedia.twitter_url"
+            placeholder="Twitter profile link"
+          />
+          <Input name="socialMedia.website_url" placeholder="Website link" />
         </Content>
         <UpdateButton>Update Profile</UpdateButton>
       </Form>
