@@ -8,18 +8,19 @@ import {
   ContainerHeader,
   Content,
   Profile,
-  Dropdown,
+  ProfileAction,
   DropdownMenu,
+  DropdownContainer,
   Options,
 } from './styles';
 
 import logo from '~/assets/logo.svg';
 
 export default function Header() {
-  const [visible, setVisibile] = useState(false);
-
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
+  const [visible, setVisibile] = useState(false);
 
   function handleToggleVisible() {
     setVisibile(!visible);
@@ -42,21 +43,22 @@ export default function Header() {
           {auth.signed ? (
             <Profile>
               <div>
-                <Dropdown onClick={handleToggleVisible}>
+                <ProfileAction onClick={handleToggleVisible}>
                   <img
                     src="https://api.adorable.io/avatars/50/abott@adorable.png"
                     alt="User demo"
                   />
-                  <span />
-                </Dropdown>
+                </ProfileAction>
               </div>
 
-              <DropdownMenu visible={visible}>
-                <Link to="/profile">Profile</Link>
-                <button type="button" onClick={handleSignOut}>
-                  Sign out
-                </button>
-              </DropdownMenu>
+              <DropdownContainer>
+                <DropdownMenu visible={visible}>
+                  <Link to="/profile">Profile</Link>
+                  <button type="button" onClick={handleSignOut}>
+                    Sign out
+                  </button>
+                </DropdownMenu>
+              </DropdownContainer>
             </Profile>
           ) : (
             <Options>

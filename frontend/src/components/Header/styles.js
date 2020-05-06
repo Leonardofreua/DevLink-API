@@ -46,7 +46,7 @@ export const Profile = styled.div`
   }
 `;
 
-export const Dropdown = styled.button`
+export const ProfileAction = styled.button`
   background: none;
   border: 0;
   position: relative;
@@ -71,11 +71,15 @@ export const Dropdown = styled.button`
   }
 `;
 
+export const DropdownContainer = styled.div`
+  position: relative;
+`;
+
 export const DropdownMenu = styled.div`
   position: absolute;
   width: 120px;
-  left: calc(88%);
-  top: 70px;
+  left: calc(50% - 100px);
+  top: calc(87% + 20px);
   background: #fff;
   padding: 15px 5px;
   background-clip: padding-box;
