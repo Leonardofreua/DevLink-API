@@ -21,6 +21,12 @@ const schemaValidation = Yup.object().shape({
     .min(6, 'Password must be at least 6 characteres')
     .required('Password is required'),
   techs: Yup.array()
+    .of(
+      Yup.object().shape({
+        value: Yup.string(),
+        label: Yup.string(),
+      })
+    )
     .max(5, 'Choose a maximum of 5 techs')
     .required('Techs is required')
     .nullable(),

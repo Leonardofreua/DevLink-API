@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
+import * as Yup from 'yup';
 
 import { updateProfileRequest } from '~/store/modules/dev/actions';
 
@@ -13,6 +14,47 @@ import {
 } from './styles';
 
 import { TechsObject } from '~/utils/TechsObject';
+
+const schemaValidation = Yup.object().shape({
+  name: Yup.string().required('Name is required'),
+  email: Yup.string()
+    .email('Enter a valid email')
+    .required('Email is required'),
+  bio: Yup.string().max(160, 'Max 160 characteres.'),
+
+  oldPassword: Yup.string(),
+  password: Yup.string().when('oldPassword', (oldPassword, field) =>
+    oldPassword
+      ? field
+          .min(6, 'Password must be at least 6 characteres')
+          .required('New password is required')
+      : field
+  ),
+  confirmPassword: Yup.string().when('password', (password, field) =>
+    password
+      ? field
+          .required('Confirm password is required')
+          .oneOf([Yup.ref('password')])
+      : field
+  ),
+  techs: Yup.array()
+    .of(
+      Yup.object().shape({
+        value: Yup.string(),
+        label: Yup.string(),
+      })
+    )
+    .max(5, 'Choose a maximum of 5 techs')
+    .nullable(),
+  socialMedia: Yup.object().shape({
+    github_url: Yup.string(),
+    linkedin_url: Yup.string(),
+    youtube_url: Yup.string(),
+    medium_url: Yup.string(),
+    twitter_url: Yup.string(),
+    website_url: Yup.string(),
+  }),
+});
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -51,7 +93,11 @@ export default function Profile() {
 
   return (
     <Container>
-      <Form initialData={profile} onSubmit={handleSubmit}>
+      <Form
+        initialData={profile}
+        schema={schemaValidation}
+        onSubmit={handleSubmit}
+      >
         <Content>
           <TitleForm>Your personal information</TitleForm>
 
@@ -78,17 +124,25 @@ export default function Profile() {
 
           <hr />
 
-          <Input
-            name="oldPassword"
-            type="password"
-            placeholder="Old Password"
-          />
-          <Input name="password" type="password" placeholder="New Password" />
-          <Input
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirm Password"
-          />
+          {!profile.login_with_github && (
+            <>
+              <Input
+                name="oldPassword"
+                type="password"
+                placeholder="Old Password"
+              />
+              <Input
+                name="password"
+                type="password"
+                placeholder="New Password"
+              />
+              <Input
+                name="confirmPassword"
+                type="password"
+                placeholder="Confirm Password"
+              />
+            </>
+          )}
 
           <TitleForm>Where else are you online?</TitleForm>
 

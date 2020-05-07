@@ -41,6 +41,7 @@ class DevController {
   async update(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string(),
+      bio: Yup.string().max(160),
       email: Yup.string().email(),
       oldPassword: Yup.string().min(6),
       password: Yup.string()
@@ -51,7 +52,12 @@ class DevController {
       confirmPassword: Yup.string().when('password', (password, field) =>
         password ? field.required().oneOf([Yup.ref('password')]) : field
       ),
-      techs: Yup.array(),
+      techs: Yup.array().of(
+        Yup.object().shape({
+          value: Yup.string(),
+          label: Yup.string(),
+        })
+      ),
       socialMedia: Yup.object().shape({
         github_url: Yup.string(),
         linkedin_url: Yup.string(),

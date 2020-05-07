@@ -57,7 +57,7 @@ DevSchema.pre('save', async function save(next) {
   }
 });
 
-DevSchema.pre('findOneAndUpdate', async function update(next) {
+DevSchema.pre('update', async function update(next) {
   const modifiedPassword = this.getUpdate().$set.password;
 
   if (!modifiedPassword) {
