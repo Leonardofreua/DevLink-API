@@ -18,8 +18,8 @@ import {
   Loading,
 } from './styles';
 
-import { TechsObject } from '~/pages/utils/TechsObject';
-import { parseArrayObjectsToStringArray } from '~/pages/utils/parseTechs';
+import { TechsObject } from '~/utils/TechsObject';
+import { parseArrayObjectsToArrayString } from '~/utils/parseTechs';
 
 import Pagination from '~/components/Pagination';
 
@@ -150,7 +150,7 @@ export default function Home() {
       /**
        * Search with techs and coords
        */
-      const listTechs = parseArrayObjectsToStringArray(techs);
+      const listTechs = parseArrayObjectsToArrayString(techs);
 
       await searchUsers(listTechs);
 
@@ -160,7 +160,7 @@ export default function Home() {
       /**
        * Search with only techs
        */
-      const listTechs = parseArrayObjectsToStringArray(techs);
+      const listTechs = parseArrayObjectsToArrayString(techs);
 
       await searchUsers(listTechs);
 

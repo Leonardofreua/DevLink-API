@@ -38,6 +38,7 @@ class SessionController {
         location,
         socialMedia,
         file,
+        login_with_github,
       } = dev;
 
       return res.json({
@@ -49,6 +50,7 @@ class SessionController {
           techs,
           location,
           socialMedia,
+          login_with_github,
           avatar: file || avatar_url,
         },
         token: jwt.sign({ _id }, authConfig.secret, {

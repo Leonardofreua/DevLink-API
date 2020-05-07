@@ -53,7 +53,14 @@ class SessionGithubController {
     let result = {};
 
     if (dev) {
-      const { _id, techs, location, socialMedia, file } = dev;
+      const {
+        _id,
+        techs,
+        location,
+        socialMedia,
+        file,
+        login_with_github,
+      } = dev;
 
       result = {
         dev: {
@@ -65,6 +72,7 @@ class SessionGithubController {
           location,
           socialMedia,
           avatar: file || avatar_url,
+          login_with_github,
         },
         token: jwt.sign({ _id }, authConfig.secret, {
           expiresIn: authConfig.expiresIn,
@@ -75,7 +83,13 @@ class SessionGithubController {
         github_url: html_url,
       };
 
-      const { _id, file } = await Dev.create({
+      const {
+        _id,
+        file,
+        techs,
+        location,
+        login_with_github,
+      } = await Dev.create({
         name,
         email,
         github_username: login,
@@ -91,7 +105,12 @@ class SessionGithubController {
           _id,
           name,
           email,
+          bio,
+          techs,
+          location,
+          socialMedia,
           avatar: file || avatar_url,
+          login_with_github,
         },
         token: jwt.sign({ _id }, authConfig.secret, {
           expiresIn: authConfig.expiresIn,

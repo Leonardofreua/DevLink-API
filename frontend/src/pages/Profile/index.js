@@ -12,7 +12,7 @@ import {
   UpdateButton,
 } from './styles';
 
-import { TechsObject } from '~/pages/utils/TechsObject';
+import { TechsObject } from '~/utils/TechsObject';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -34,28 +34,35 @@ export default function Profile() {
   };
 
   function handleSubmit(data) {
+    Object.assign(data, { techs });
     dispatch(updateProfileRequest(data));
   }
 
   useEffect(() => {
     function filterTechs() {
-      const filteredTechs = TechsObject.filter((tech) => {
-        return profile.techs.indexOf(tech.value) > -1;
+      const filteredTechs = TechsObject.filter((techObject) => {
+        return profile.techs.indexOf(techObject.label) >= 0;
       });
 
       setTechs(filteredTechs);
     }
     filterTechs();
   }, [profile]);
+
   return (
     <Container>
       <Form initialData={profile} onSubmit={handleSubmit}>
         <Content>
           <TitleForm>Your personal information</TitleForm>
 
-          <Input name="name" placeholder="Your name" />
+          <Input name="name" maxLength="50" placeholder="Your name" />
           <Input name="bio" multiline maxLength="160" placeholder="Bio" />
-          <Input name="email" type="email" placeholder="Your email" />
+          <Input
+            name="email"
+            maxLength="50"
+            type="email"
+            placeholder="Your email"
+          />
           <TechsSelect
             name="techs"
             components={components}
@@ -63,8 +70,8 @@ export default function Profile() {
             placeholder="Type a tech and press enter..."
             options={TechsObject}
             styles={selectStyle}
-            value={techs}
             onChange={(event) => setTechs(event)}
+            value={techs}
             isClearable={false}
             isMulti
           />
@@ -85,21 +92,42 @@ export default function Profile() {
 
           <TitleForm>Where else are you online?</TitleForm>
 
-          <Input name="socialMedia.github_url" placeholder="Github profile" />
+          <Input
+            name="socialMedia.github_url"
+            type="url"
+            pattern="https://.*"
+            placeholder="https://github.com/exampleName"
+          />
           <Input
             name="socialMedia.linkedin_url"
-            placeholder="Linkedin profile"
+            type="url"
+            pattern="https://.*"
+            placeholder="https://www.linkedin.com/in/example-name-bb4b51249/"
           />
           <Input
             name="socialMedia.youtube_url"
-            placeholder="Youtube channel link"
+            type="url"
+            pattern="https://.*"
+            placeholder="https://www.youtube.com/user/exampleChannel"
           />
-          <Input name="socialMedia.medium_url" placeholder="Medium link" />
+          <Input
+            name="socialMedia.medium_url"
+            type="url"
+            pattern="https://.*"
+            placeholder="https://medium.com/@example"
+          />
           <Input
             name="socialMedia.twitter_url"
-            placeholder="Twitter profile link"
+            type="url"
+            pattern="https://.*"
+            placeholder="https://twitter.com/example"
           />
-          <Input name="socialMedia.website_url" placeholder="Website link" />
+          <Input
+            name="socialMedia.website_url"
+            type="url"
+            pattern="https://.*"
+            placeholder="https://myblogexample.com"
+          />
         </Content>
         <UpdateButton>Update Profile</UpdateButton>
       </Form>

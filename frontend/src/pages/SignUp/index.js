@@ -8,7 +8,7 @@ import { TextualContent } from '~/styles/components/TextualContent';
 import { SubmitButton } from '~/styles/components/Button';
 import Select from '~/styles/components/TechSelect';
 
-import { TechsObject } from '~/pages/utils/TechsObject';
+import { TechsObject } from '~/utils/TechsObject';
 
 import { signUpRequest } from '~/store/modules/auth/actions';
 

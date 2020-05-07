@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 
 import Dev from '../models/Dev';
 
-import { parseArrayObjectsToStringArray } from '../utils/parseTechs';
+import { parseArrayObjectsToArrayString } from '../utils/parseTechs';
 
 class DevController {
   async store(req, res) {
@@ -14,7 +14,7 @@ class DevController {
       password: Yup.string()
         .required()
         .min(6),
-      techs: Yup.string().required(),
+      techs: Yup.array().required(),
     });
 
     if (await schema.isValid(req.body)) {
@@ -30,7 +30,7 @@ class DevController {
         name,
         email,
         password,
-        techs: parseArrayObjectsToStringArray(techs),
+        techs: parseArrayObjectsToArrayString(techs),
       });
 
       return res.json(dev);
@@ -51,13 +51,21 @@ class DevController {
       confirmPassword: Yup.string().when('password', (password, field) =>
         password ? field.required().oneOf([Yup.ref('password')]) : field
       ),
-      techs: Yup.string(),
+      techs: Yup.array(),
+      socialMedia: Yup.object().shape({
+        github_url: Yup.string(),
+        linkedin_url: Yup.string(),
+        youtube_url: Yup.string(),
+        medium_url: Yup.string(),
+        twitter_url: Yup.string(),
+        website_url: Yup.string(),
+      }),
       latitude: Yup.string(),
       longitude: Yup.string(),
     });
 
     if (await schema.isValid(req.body)) {
-      const { email, oldPassword, latitude, longitude } = req.body;
+      const { email, oldPassword, techs, latitude, longitude } = req.body;
 
       const dev = await Dev.findById(req.devId);
 
@@ -86,11 +94,14 @@ class DevController {
         return res.status(401).json({ error: 'Password does not match' });
       }
 
+      const parsedTechs = parseArrayObjectsToArrayString(techs);
+
       await Dev.update(
         { _id: req.devId },
         {
           $set: req.body,
           location: Object.keys(location).length > 0 ? location : undefined,
+          techs: parsedTechs,
         }
       );
 
@@ -98,7 +109,6 @@ class DevController {
         _id,
         name,
         bio,
-        techs,
         socialMedia,
         avatar_url,
         file,
@@ -111,7 +121,7 @@ class DevController {
         name,
         email,
         bio,
-        techs,
+        techs: parsedTechs,
         location,
         socialMedia,
         avatar: file || avatar_url,
