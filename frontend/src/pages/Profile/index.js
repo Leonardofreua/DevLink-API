@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 
 import { updateProfileRequest } from '~/store/modules/dev/actions';
 
+import AvatarInput from './AvatarInput';
+
 import {
   Container,
   Content,
@@ -37,6 +39,7 @@ const schemaValidation = Yup.object().shape({
           .oneOf([Yup.ref('password')])
       : field
   ),
+  file: Yup.string(),
   techs: Yup.array()
     .of(
       Yup.object().shape({
@@ -98,6 +101,7 @@ export default function Profile() {
         schema={schemaValidation}
         onSubmit={handleSubmit}
       >
+        <AvatarInput name="file" github_avatar={profile.avatar} />
         <Content>
           <TitleForm>Your personal information</TitleForm>
 

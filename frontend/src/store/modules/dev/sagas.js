@@ -34,6 +34,7 @@ export function* updateProfile({ payload }) {
       email,
       bio,
       techs,
+      file,
       socialMedia: {
         github_url,
         linkedin_url,
@@ -50,6 +51,7 @@ export function* updateProfile({ payload }) {
       email,
       bio,
       techs,
+      file,
       socialMedia: {
         github_url,
         linkedin_url,

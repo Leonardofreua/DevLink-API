@@ -6,7 +6,7 @@ import Select from '~/styles/components/TechSelect';
 export const Container = styled.div`
   width: 100%;
   max-width: 950px;
-  margin: 210px auto;
+  margin: 50px auto;
 
   display: flex;
   justify-content: space-between;
