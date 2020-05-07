@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 
@@ -18,6 +18,8 @@ export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.dev.profile);
 
+  const [techs, setTechs] = useState([]);
+
   const selectStyle = {
     control: (_, state) => ({
       // none of react-select's styles are passed to <Control />
@@ -35,6 +37,16 @@ export default function Profile() {
     dispatch(updateProfileRequest(data));
   }
 
+  useEffect(() => {
+    function filterTechs() {
+      const filteredTechs = TechsObject.filter((tech) => {
+        return profile.techs.indexOf(tech.value) > -1;
+      });
+
+      setTechs(filteredTechs);
+    }
+    filterTechs();
+  }, [profile]);
   return (
     <Container>
       <Form initialData={profile} onSubmit={handleSubmit}>
@@ -51,6 +63,8 @@ export default function Profile() {
             placeholder="Type a tech and press enter..."
             options={TechsObject}
             styles={selectStyle}
+            value={techs}
+            onChange={(event) => setTechs(event)}
             isClearable={false}
             isMulti
           />
