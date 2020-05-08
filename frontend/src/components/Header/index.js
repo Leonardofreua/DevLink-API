@@ -17,8 +17,9 @@ import {
 import logo from '~/assets/logo.svg';
 
 export default function Header() {
-  const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+  const profile = useSelector((state) => state.dev.profile);
 
   const [visible, setVisible] = useState(false);
 
@@ -45,8 +46,12 @@ export default function Header() {
               <div>
                 <ProfileAction onClick={handleToggleVisible}>
                   <img
-                    src="https://api.adorable.io/avatars/50/abott@adorable.png"
-                    alt="User demo"
+                    src={
+                      (profile.avatar && profile.avatar.file_url) ||
+                      profile.avatar ||
+                      'http://api.adorable.io/avatars/50/abott@adorable.png'
+                    }
+                    alt={profile.name}
                   />
                 </ProfileAction>
               </div>

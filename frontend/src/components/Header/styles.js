@@ -52,7 +52,8 @@ export const ProfileAction = styled.button`
   position: relative;
 
   img {
-    height: 32px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
   }
 
@@ -61,6 +62,7 @@ export const ProfileAction = styled.button`
     width: 0;
     height: 0;
     margin-left: 9px;
+    padding-top: 3px;
     vertical-align: middle;
     border-top-style: solid;
     border-top-width: 4px;
