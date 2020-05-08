@@ -29,7 +29,7 @@ export default function Routes() {
 
       <Route path="/home" component={Home} isPrivate />
       <Route path="/profile" component={Profile} isPrivate />
-      <Route path="/:id" component={DevProfile} isPrivate />
+      <Route path="/dev/:id" component={DevProfile} isPrivate />
     </Switch>
   );
 }

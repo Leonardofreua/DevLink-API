@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
-import Select from '~/styles/components/TechSelect';
+import Select from '~/components/TechSelect';
 
 export const Container = styled.div`
   width: 100%;

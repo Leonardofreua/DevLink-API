@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import { SignUpContainer } from './styles';
 import { TextualContent } from '~/styles/components/TextualContent';
 import { SubmitButton } from '~/styles/components/Button';
-import Select from '~/styles/components/TechSelect';
+import Select from '~/components/TechSelect';
 
 import { TechsObject } from '~/utils/TechsObject';
 

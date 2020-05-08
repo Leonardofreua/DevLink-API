@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 import { lighten } from 'polished';
 
-import Select from '~/styles/components/TechSelect';
+import Select from '~/components/TechSelect';
 
 export const SearchForm = styled.form`
   display: flex;

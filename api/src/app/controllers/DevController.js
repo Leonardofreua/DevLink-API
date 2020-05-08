@@ -100,7 +100,8 @@ class DevController {
         return res.status(401).json({ error: 'Password does not match' });
       }
 
-      const parsedTechs = parseArrayObjectsToArrayString(techs);
+      const parsedTechs =
+        techs !== undefined ? parseArrayObjectsToArrayString(techs) : [];
 
       await Dev.update(
         { _id: req.devId },
