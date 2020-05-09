@@ -76,6 +76,11 @@ export const List = styled.main`
         color: ${lighten(0.1, '#0F862A')};
       }
     }
+
+    li:hover {
+      transform: scale(1.02);
+      transition: all 0.4s ease-in-out;
+    }
   }
 `;
 
