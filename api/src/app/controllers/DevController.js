@@ -71,21 +71,12 @@ class DevController {
     });
 
     if (await schema.isValid(req.body)) {
-      const { email, oldPassword, techs, latitude, longitude } = req.body;
+      const { email, oldPassword, techs } = req.body;
 
       const dev = await Dev.findById(req.devId);
 
       if (!dev) {
         return res.status(401).json({ error: 'Dev not found.' });
-      }
-
-      let location = {};
-
-      if (latitude && longitude) {
-        location = {
-          type: 'Point',
-          coordinates: [longitude, latitude],
-        };
       }
 
       if (email && email !== dev.email) {
@@ -107,7 +98,6 @@ class DevController {
         { _id: req.devId },
         {
           $set: req.body,
-          location: Object.keys(location).length > 0 ? location : undefined,
           techs: parsedTechs,
         }
       );
@@ -129,7 +119,6 @@ class DevController {
         email,
         bio,
         techs: parsedTechs,
-        location,
         socialMedia,
         avatar: file || avatar_url,
       });

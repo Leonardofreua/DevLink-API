@@ -8,6 +8,7 @@ import SessionGithubController from './app/controllers/SessionGithubController';
 import SearchController from './app/controllers/SearchController';
 import ForgotPassowrdController from './app/controllers/ForgotPassowrdController';
 import FileController from './app/controllers/FileController';
+import LocationController from './app/controllers/LocationController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -31,6 +32,8 @@ routes.put('/resetPassword', ForgotPassowrdController.update);
 routes.use(authMiddleware);
 
 routes.put('/devs', DevController.update);
+
+routes.put('/location', LocationController.store);
 
 routes.post('/files', upload.single('file'), FileController.store);
 routes.delete('/files/:id', FileController.delete);

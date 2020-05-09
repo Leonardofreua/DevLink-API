@@ -82,7 +82,9 @@ export default function Home() {
                 setLongitude(coords.longitude);
                 setLatitude(coords.latitude);
 
-                dispatch(setUserLocationRequest(longitude, latitude));
+                dispatch(
+                  setUserLocationRequest(coords.longitude, coords.latitude)
+                );
               },
               (err) => {
                 console.tron.log(err);

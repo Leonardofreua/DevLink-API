@@ -14,7 +14,7 @@ export function* setUserLocation({ payload }) {
   try {
     const { longitude, latitude } = payload;
 
-    const response = yield call(api.put, '/devs', {
+    const response = yield call(api.put, '/location', {
       longitude,
       latitude,
     });
