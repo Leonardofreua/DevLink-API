@@ -43,6 +43,7 @@ export const SearchButton = styled.button`
 export const List = styled.main`
   flex: 1;
   margin: 0 auto;
+  padding: 20px;
 
   ul {
     display: grid;

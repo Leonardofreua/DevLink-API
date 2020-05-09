@@ -23,6 +23,7 @@ export const Container = styled.div`
 
     strong {
       display: block;
+      margin-bottom: 8px;
       font-size: 17px;
       color: #333;
     }
@@ -30,13 +31,12 @@ export const Container = styled.div`
     span {
       font-size: 14px;
       color: #5b5f63;
-      margin-top: 2px;
     }
   }
 
   p {
     margin-top: 20px;
-    text-align: justify;
+    text-align: center;
     text-justify: inter-word;
     color: #555;
   }
