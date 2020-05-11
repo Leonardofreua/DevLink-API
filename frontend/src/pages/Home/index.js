@@ -227,7 +227,9 @@ export default function Home() {
                   />
                 </Link>
                 <div>
-                  <strong>{dev.name}</strong>
+                  <Link to={`/dev/${dev._id}`}>
+                    <strong>{dev.name}</strong>
+                  </Link>
                   <span>{dev.techs.join(', ')}</span>
                 </div>
               </UserSection>
