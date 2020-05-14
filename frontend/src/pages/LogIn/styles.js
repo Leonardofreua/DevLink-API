@@ -63,6 +63,11 @@ export const GithubLoginButton = styled(Link)`
   text-decoration: none;
   transition: background 0.4s;
 
+  &:hover {
+    text-decoration: none;
+    color: #fff;
+  }
+
   svg {
     vertical-align: middle;
   }
