@@ -59,10 +59,11 @@ export const ProfileAction = styled.button`
 
   &::after {
     content: '';
+    position: absolute;
     width: 0;
     height: 0;
     margin-left: 9px;
-    padding-top: 3px;
+    top: calc(11% + 15px);
     vertical-align: middle;
     border-top-style: solid;
     border-top-width: 4px;
@@ -79,8 +80,9 @@ export const DropdownContainer = styled.div`
 
 export const DropdownMenu = styled.div`
   position: absolute;
+  z-index: 1;
   width: 120px;
-  left: calc(50% - 100px);
+  left: calc(50% - 86px);
   top: calc(87% + 20px);
   background: #fff;
   padding: 15px 5px;

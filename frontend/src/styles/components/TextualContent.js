@@ -10,6 +10,7 @@ export const TextualContent = styled.div`
 
   h1 {
     font-size: 37px;
+    font-weight: bold;
   }
 
   p {
