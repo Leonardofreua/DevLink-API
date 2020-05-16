@@ -8929,6 +8929,14 @@ react-app-rewired@^2.1.5:
   dependencies:
     semver "^5.6.0"
 
+react-bootstrap-range-slider@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-range-slider/-/react-bootstrap-range-slider-0.3.2.tgz#9c6ec7fe937a5739535b690d89aa0ed330ff2015"
+  integrity sha512-CsY53/tv8QVhWGYfEQMkHT/7fpUDgjvpjjvt0CJrAgp9+guJPeY31D7c8odz5vrNMM2y76RRaeaHeiXX1lr4/Q==
+  dependencies:
+    classnames "^2.2.6"
+    prop-types "^15.7.2"
+
 react-bootstrap@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-1.0.1.tgz#044b51f34a9db8e17dbfb321a71267a8d6ad11b4"

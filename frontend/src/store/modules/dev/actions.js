@@ -1,14 +1,19 @@
-export function setUserLocationRequest(longitude, latitude) {
+export function setUserLocationRequest(
+  locationStatus,
+  maxDistance,
+  longitude,
+  latitude
+) {
   return {
     type: '@dev/SET_USER_LOCATION_REQUEST',
-    payload: { longitude, latitude },
+    payload: { locationStatus, maxDistance, longitude, latitude },
   };
 }
 
-export function setUserLocationSuccess(location) {
+export function setUserLocationSuccess(locationStatus, maxDistance, location) {
   return {
     type: '@dev/SET_USER_LOCATION_SUCCESS',
-    payload: { location },
+    payload: { maxDistance, locationStatus, location },
   };
 }
 

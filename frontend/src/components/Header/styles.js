@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { lighten } from 'polished';
 
 export const ContainerHeader = styled.header`
@@ -46,10 +46,32 @@ export const Profile = styled.div`
   }
 `;
 
-export const ProfileAction = styled.button`
+export const LocationIcon = styled.button.attrs((props) => ({
+  disabled: !props.locationStatus,
+}))`
   background: none;
   border: 0;
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  svg {
+    margin: 0 auto;
+    ${(props) =>
+      props.locationStatus &&
+      css`
+        color: #1fbf49;
+      `}
+  }
+`;
+
+export const ProfileAction = styled.button`
+  background: none;
   position: relative;
+  border: 0;
+  margin-left: 25px;
 
   img {
     width: 40px;

@@ -25,13 +25,19 @@ export const TechsSelect = styled(Select)`
 
 export const ResultLegend = styled.div`
   max-width: 470px;
-  margin: 40px 0 25px;
+  margin: 40px 0 4px;
 
   span {
     width: 100%;
     font-size: 18px;
     text-align: center;
   }
+`;
+
+export const MaxDistanceLabel = styled.div`
+  margin-bottom: 20px;
+  font-size: 12px;
+  color: #999;
 `;
 
 export const SearchButton = styled.button`

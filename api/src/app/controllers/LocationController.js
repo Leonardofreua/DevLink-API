@@ -10,7 +10,7 @@ class LocationController {
     });
 
     if (await schema.isValid(req.body)) {
-      const { longitude, latitude } = req.body;
+      const { longitude, latitude, maxDistance } = req.body;
 
       let coordinates = {};
 
@@ -18,6 +18,7 @@ class LocationController {
         coordinates = {
           type: 'Point',
           coordinates: [longitude, latitude],
+          maxDistance,
         };
       }
 

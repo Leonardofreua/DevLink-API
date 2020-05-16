@@ -9,7 +9,6 @@ import {
 } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 
-import history from '~/services/history';
 import api from '~/services/api';
 
 import { Container, SocialMedia } from './styles';

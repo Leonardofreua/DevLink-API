@@ -11,6 +11,11 @@ const PointSchema = new mongoose.Schema(
       type: [Number],
       required: true,
     },
+    maxDistance: {
+      type: Number,
+      required: true,
+      default: 10000,
+    },
   },
   {
     timestamps: true,

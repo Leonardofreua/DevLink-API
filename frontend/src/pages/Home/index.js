@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdSearch } from 'react-icons/md';
 import { FaSpinner } from 'react-icons/fa';
-import { toast } from 'react-toastify';
 import { isEmpty } from 'lodash';
 
 import api from '~/services/api';
@@ -13,6 +12,7 @@ import {
   TechsSelect,
   SearchButton,
   ResultLegend,
+  MaxDistanceLabel,
   List,
   UserSection,
   Loading,
@@ -27,6 +27,11 @@ import { setUserLocationRequest } from '~/store/modules/dev/actions';
 
 export default function Home() {
   const dispatch = useDispatch();
+  const locationStatus = useSelector((state) => state.dev.locationStatus);
+  const maxDistanceSetted = useSelector(
+    (state) =>
+      state.dev.profile.location && state.dev.profile.location.maxDistance
+  );
 
   const [devs, setDevs] = useState([]);
   const [techs, setTechs] = useState({});
@@ -50,27 +55,16 @@ export default function Home() {
     DropdownIndicator: null,
   };
 
-  useEffect(() => {
-    function checkPermissionStatus() {
-      navigator.permissions
-        .query({ name: 'geolocation' })
-        .then((permission) => {
-          if (permission.state === 'granted') {
-            toast.success('Location enabled');
-          } else if (permission.state === 'denied') {
-            toast.info('Location disabled');
-          }
-        });
-    }
-
-    checkPermissionStatus();
-  }, []);
-
   /**
    * Get the current location if granted permission
    */
   useEffect(() => {
     function getCurrentUserLocation() {
+      const maxDistance =
+        maxDistanceSetted === undefined || maxDistanceSetted === null
+          ? 10000
+          : maxDistanceSetted;
+
       navigator.permissions
         .query({ name: 'geolocation' })
         .then((permission) => {
@@ -83,7 +77,12 @@ export default function Home() {
                 setLatitude(coords.latitude);
 
                 dispatch(
-                  setUserLocationRequest(coords.longitude, coords.latitude)
+                  setUserLocationRequest(
+                    true,
+                    maxDistance,
+                    coords.longitude,
+                    coords.latitude
+                  )
                 );
               },
               (err) => {
@@ -94,18 +93,24 @@ export default function Home() {
               }
             );
           } else if (permission.state === 'denied') {
-            dispatch(setUserLocationRequest(longitude, latitude));
+            dispatch(
+              setUserLocationRequest(false, maxDistance, longitude, latitude)
+            );
           }
         });
     }
 
     getCurrentUserLocation();
-  }, [longitude, latitude, dispatch]);
+  }, [maxDistanceSetted, longitude, latitude, dispatch]);
 
   async function searchUsers(techsArray = []) {
     setLoading(true);
     const response = await api.get('/search', {
       params: {
+        maxDistance:
+          maxDistanceSetted === undefined || maxDistanceSetted === null
+            ? 10000
+            : maxDistanceSetted,
         techs: techsArray.toString(),
         longitude,
         latitude,
@@ -210,6 +215,12 @@ export default function Home() {
           <span>No people were found nearby!</span>
         )}
       </ResultLegend>
+
+      {locationStatus && (
+        <MaxDistanceLabel>
+          Searched distance: {maxDistanceSetted}km
+        </MaxDistanceLabel>
+      )}
 
       <List>
         <ul>

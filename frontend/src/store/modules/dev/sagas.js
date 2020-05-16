@@ -12,16 +12,17 @@ import {
 
 export function* setUserLocation({ payload }) {
   try {
-    const { longitude, latitude } = payload;
+    const { locationStatus, maxDistance, longitude, latitude } = payload;
 
     const response = yield call(api.put, '/location', {
+      maxDistance,
       longitude,
       latitude,
     });
 
     const { location } = response.data;
 
-    yield put(setUserLocationSuccess(location));
+    yield put(setUserLocationSuccess(locationStatus, maxDistance, location));
   } catch (err) {
     yield put(setUserLocationFailure());
   }

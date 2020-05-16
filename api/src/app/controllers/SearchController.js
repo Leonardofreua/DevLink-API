@@ -4,7 +4,7 @@ import { parseStringAsArray } from '../utils/parseTechs';
 
 class SearchController {
   async index(req, res) {
-    const { techs, latitude, longitude } = req.query;
+    const { maxDistance, techs, latitude, longitude } = req.query;
 
     let searchCriteria = {};
     let techsArray = [];
@@ -21,7 +21,7 @@ class SearchController {
               type: 'Point',
               coordinates: [longitude, latitude],
             },
-            $maxDistance: 20000,
+            $maxDistance: Number(maxDistance),
           },
         },
       };
@@ -33,7 +33,7 @@ class SearchController {
               type: 'Point',
               coordinates: [longitude, latitude],
             },
-            $maxDistance: 20000,
+            $maxDistance: Number(maxDistance),
           },
         },
       };
