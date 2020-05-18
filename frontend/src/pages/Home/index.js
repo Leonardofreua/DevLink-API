@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdSearch } from 'react-icons/md';
-import { FaSpinner } from 'react-icons/fa';
+import { Spinner } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 
 import api from '~/services/api';
@@ -265,7 +265,9 @@ export default function Home() {
           />
         )}
 
-        <Loading>{loading && <FaSpinner color="#187026" size={30} />}</Loading>
+        <Loading>
+          {loading && <Spinner animation="grow" variant="success" />}
+        </Loading>
       </List>
     </>
   );

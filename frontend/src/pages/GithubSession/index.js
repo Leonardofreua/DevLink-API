@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import { Spinner } from 'react-bootstrap';
 
 import { githubOAuthRequest } from '~/store/modules/auth/actions';
 
@@ -16,7 +17,7 @@ export default function GithubSession({ location }) {
     handleOAuth(location);
   }, [location, dispatch]);
 
-  return <h1>Redirecting...</h1>;
+  return <Spinner animation="grow" variant="success" />;
 }
 
 GithubSession.propTypes = {
