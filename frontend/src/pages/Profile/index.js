@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
+import { Spinner } from 'react-bootstrap';
 import * as Yup from 'yup';
 
 import { updateProfileRequest } from '~/store/modules/dev/actions';
@@ -62,6 +63,7 @@ const schemaValidation = Yup.object().shape({
 export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.dev.profile);
+  const loading = useSelector((state) => state.auth.loading);
 
   const [techs, setTechs] = useState([]);
 
@@ -187,7 +189,19 @@ export default function Profile() {
             placeholder="https://myblogexample.com"
           />
         </Content>
-        <UpdateButton>Update Profile</UpdateButton>
+        <UpdateButton disabled={loading ? 1 : 0}>
+          {loading ? (
+            <Spinner
+              as="span"
+              variant="light"
+              animation="grow"
+              role="status"
+              aria-hidden="true"
+            />
+          ) : (
+            'Update Profile'
+          )}
+        </UpdateButton>
       </Form>
     </Container>
   );

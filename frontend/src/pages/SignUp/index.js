@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
+import { Spinner } from 'react-bootstrap';
 import * as Yup from 'yup';
 
 import { SignUpContainer } from './styles';
@@ -82,8 +83,18 @@ export default function SignUp() {
             isMulti
           />
 
-          <SubmitButton>
-            {loading ? 'Loading...' : 'Create Account'}
+          <SubmitButton disabled={loading ? 1 : 0}>
+            {loading ? (
+              <Spinner
+                as="span"
+                variant="light"
+                animation="grow"
+                role="status"
+                aria-hidden="true"
+              />
+            ) : (
+              'Create Account'
+            )}
           </SubmitButton>
         </Form>
       </SignUpContainer>

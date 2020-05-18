@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 import { FaGithub } from 'react-icons/fa';
+import { Spinner } from 'react-bootstrap';
 import * as Yup from 'yup';
 
 import { logInRequest } from '~/store/modules/auth/actions';
@@ -48,7 +49,19 @@ export default function LogIn() {
           <Input name="email" type="email" placeholder="Email" />
           <Input name="password" type="password" placeholder="Password" />
 
-          <SubmitButton>{loading ? 'Loading...' : 'Log in'}</SubmitButton>
+          <SubmitButton disabled={loading ? 1 : 0}>
+            {loading ? (
+              <Spinner
+                as="span"
+                variant="light"
+                animation="grow"
+                role="status"
+                aria-hidden="true"
+              />
+            ) : (
+              'Log in'
+            )}
+          </SubmitButton>
         </Form>
 
         <div>

@@ -15,7 +15,16 @@ export const SubmitButton = styled.button`
   line-height: 47px;
   transition: background 0.6s;
 
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
   &:hover {
     background: ${darken(0.06, '#28a745')};
+  }
+
+  span {
+    margin-top: 5px;
   }
 `;
