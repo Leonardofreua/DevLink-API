@@ -31,6 +31,9 @@ routes.put('/resetPassword', ForgotPassowrdController.update);
 
 routes.use(authMiddleware);
 
+/**
+ * Private routes
+ */
 routes.put('/devs', DevController.update);
 
 routes.put('/location', LocationController.store);
