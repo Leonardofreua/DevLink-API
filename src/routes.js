@@ -15,33 +15,33 @@ import authMiddleware from './app/middlewares/auth';
 const routes = new Router();
 const upload = multer(multerConfig);
 
-routes.post('/devs', DevController.store);
+routes.post('/api/devs', DevController.store);
 
-routes.post('/sessions', SessionController.store);
-routes.post('/githubSessions', SessionGithubController.store);
+routes.post('/api/sessions', SessionController.store);
+routes.post('/api/githubSessions', SessionGithubController.store);
 
-routes.post('/forgotPassword', ForgotPassowrdController.edit);
+routes.post('/api/forgotPassword', ForgotPassowrdController.edit);
 
 routes.get(
-  '/resetPassword/:passwd_token',
+  '/api/resetPassword/:passwd_token',
   ForgotPassowrdController.redirectToResetPassword
 );
 
-routes.put('/resetPassword', ForgotPassowrdController.update);
+routes.put('/api/resetPassword', ForgotPassowrdController.update);
 
 routes.use(authMiddleware);
 
 /**
  * Private routes
  */
-routes.put('/devs', DevController.update);
+routes.put('/api/devs', DevController.update);
 
-routes.put('/location', LocationController.store);
+routes.put('/api/location', LocationController.store);
 
-routes.post('/files', upload.single('file'), FileController.store);
+routes.post('/api/files', upload.single('file'), FileController.store);
 routes.delete('/files/:id', FileController.delete);
 
-routes.get('/search', SearchController.index);
-routes.get('/search/:id', SearchController.show);
+routes.get('/api/search', SearchController.index);
+routes.get('/api/search/:id', SearchController.show);
 
 export default routes;
