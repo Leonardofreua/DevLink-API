@@ -14,7 +14,7 @@ class ForgotPasswordMail {
       template: 'resetPassword',
       context: {
         dev: name,
-        link: `http://161.35.139.123/resetPassword/${reset_password_token}`,
+        link: `http://localhost:3333/resetPassword/${reset_password_token}`,
       },
     });
   }
